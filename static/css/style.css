@@ -1,0 +1,58 @@
+#header .logo,
+footer .logo {
+    /* font-family: 'Pacifico', cursive; */
+    font-family: 'Lobster', cursive;
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 6px;
+    /* text-transform: uppercase; */
+    }
+
+
+#header .logo a,
+footer .logo a {
+    color: #fff;
+    }
+
+.polygon-img {
+    clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
+    -webkit-clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
+}
+
+/* course card hover */
+.card-gradient{
+    border-bottom-left-radius: .5rem; 
+    border-bottom-right-radius: .5rem; 
+    transition: .5s;
+}
+
+.course-card{
+    display: block;
+}
+
+.course-card:hover .card-gradient .card-title a{
+    transition: 0.5s;
+}
+
+.course-card:hover .card-gradient
+{   transition: 0.5s;
+    background: linear-gradient(45deg, #b95ce4, #4f29cd);
+    color: #fff;
+}
+.course-card:hover .card-gradient .card-title a{
+    color: #fff !important;
+}
+.course-card:hover .card-footer .card-title
+ {
+    transition: 0.5s;
+    color: #fff;
+}
+.course-card:hover .card-footer .old-price{
+    transition: 0.5s;
+    --bs-text-opacity: 1;
+    color: rgba(255, 255, 255, .7) !important;
+}
+/* end course card hover */

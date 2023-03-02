@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="">
+
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>{% block title %}Dikkha: Index{% endblock title %}</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./favicon.ico">
+
+   
+    <!-- CSS Implementing Vendors -->
+    <link rel="stylesheet" href="{% static 'css/vendor.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/font/bootstrap-icons.css' %}">
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+   
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block css %}
+    {% endblock css %}
+</head>
+
+<body>
+    
+    <!-- ========== HEADER ========== -->
+    {% include './_header.html' %}
+    <!-- ========== END HEADER ========== -->
+    <!-- ========== MAIN CONTENT ========== -->
+    {% block content %}
+    {% endblock content %}
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+
+    <!-- ========== FOOTER ========== -->
+    {% include './footer.html' %}
+    <!-- ========== END FOOTER ========== -->
+   
+
+    <!-- Go To -->
+    <a class="js-go-to go-to position-fixed" href="javascript:;" style="visibility: hidden;" data-hs-go-to-options='{
+       "offsetTop": 700,
+       "position": {
+         "init": {
+           "right": "2rem"
+         },
+         "show": {
+           "bottom": "2rem"
+         },
+         "hide": {
+           "bottom": "-2rem"
+         }
+       }
+     }'>
+    <i class="bi-chevron-up"></i>
+  </a>
+    <!-- ========== END SECONDARY CONTENTS ========== -->
+
+    <!-- JS Implementing Plugins -->
+    <script src="{% static 'js/vendor.min.js' %}"></script>
+
+    <!-- JS Front -->
+    <script src="{% static 'js/theme.min.js' %}"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+        (function() {
+            // INITIALIZATION OF HEADER
+            // =======================================================
+            new HSHeader('#header').init()
+
+
+            // INITIALIZATION OF MEGA MENU
+            // =======================================================
+            new HSMegaMenu('.js-mega-menu', {
+                desktop: {
+                    position: 'left'
+                }
+            })
+
+
+            // INITIALIZATION OF SHOW ANIMATIONS
+            // =======================================================
+            new HSShowAnimation('.js-animation-link')
+
+
+            // INITIALIZATION OF BOOTSTRAP VALIDATION
+            // =======================================================
+            HSBsValidation.init('.js-validate', {
+                onSubmit: data => {
+                    data.event.preventDefault()
+                    alert('Submited')
+                }
+            })
+
+
+            // INITIALIZATION OF BOOTSTRAP DROPDOWN
+            // =======================================================
+            HSBsDropdown.init()
+
+
+            // INITIALIZATION OF GO TO
+            // =======================================================
+            new HSGoTo('.js-go-to')
+
+
+            // INITIALIZATION OF SWIPER
+            // =======================================================
+            function loadImage(path) {
+                return new Promise(function(resolve) {
+                    const img = new Image()
+
+                    img.addEventListener('load', () => {
+                        resolve()
+                    })
+
+                    img.src = path.replace(/url\(\"(.*?)\"\)/g, '$1')
+                })
+            }
+
+            const $preloader = document.querySelector('.js-swiper-preloader')
+            const promises = [...document.querySelectorAll('.js-swiper-slide-preload')]
+                .map(slide => loadImage(window.getComputedStyle(slide).backgroundImage))
+
+            Promise.all(promises)
+                .then(() => {
+                    $preloader.remove()
+
+                    var sliderThumbs = new Swiper('.js-swiper-blog-journal-hero-thumbs', {
+                        direction: 'vertical',
+                        watchSlidesVisibility: true,
+                        watchSlidesProgress: true,
+                        slidesPerView: 3,
+                        history: false,
+                        on: {
+                            'afterInit': function(swiper) {
+                                swiper.el.style.opacity = 1
+                                swiper.el.querySelectorAll('.js-swiper-pagination-progress-body-helper')
+                                    .forEach($progress => $progress.style.transitionDuration = `${swiper.params.autoplay.delay}ms`)
+                            }
+                        }
+                    });
+
+                    var swiper = new Swiper('.js-swiper-blog-journal-hero', {
+                        effect: 'fade',
+                        autoplay: true,
+                        loop: true,
+                        pagination: {
+                            el: '.js-swiper-blog-journal-hero-pagination',
+                            clickable: true,
+                        },
+                        thumbs: {
+                            swiper: sliderThumbs
+                        }
+                    });
+                })
+
+
+            // INITIALIZATION OF STICKY BLOCKS
+            // =======================================================
+            new HSStickyBlock('.js-sticky-block', {
+                targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+            })
+        })()
+    </script>
+    {% block js %}
+    {% endblock js %}
+</body>
+
+</html>

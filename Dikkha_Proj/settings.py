@@ -28,6 +28,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
+
+
 ALLOWED_HOSTS = []
 
 
@@ -41,9 +43,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Installed Apps
-    "career",
-
+    "core",
+    "accounts",
+    "skills",
+    "student_forum",
+    "newsletter",
+    "dashboard",
+    "resume",
+    # 3rd Party Apps
+    "ckeditor",
+    'ckeditor_uploader',
+    "imagekit",
 ]
+
+# Custom user settings
+AUTH_USER_MODEL = 'accounts.Account'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'accounts.backends.CaseInsensitiveModelBackend',
+    )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -140,3 +158,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ckeditor settings
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_THUMBNAIL_SIZE = (500, 500)
+

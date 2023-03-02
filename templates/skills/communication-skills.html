@@ -1,0 +1,112 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+<style>
+    .hero{
+          position: relative;
+          min-width: 100vh;
+          min-height: 100vh;
+          /* max-width: 100vh; */
+          /* max-height: 100vh; */
+        }
+        .hero > .hero-context {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(
+          rgba(0,0,0,1),
+          rgba(0,0,0,.7),
+          rgba(0,0,0,.4),
+          rgba(0,0,0,0));
+        }
+</style>
+{% endblock %}
+{% block content %}
+<!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+        <!-- Hero -->
+     <div class="bg-img-start gradient-x-overlay-sm-dark hero" style="background-image: url(../../static/img/1920x1080/img6.jpg);">
+        <div class="d-md-flex content-space-3 content-space-md-0 hero-context">
+          <div class="container d-md-flex justify-content-md-center align-items-md-center flex-md-column min-vh-md-100 text-center">
+            <div class="w-lg-50 mt-3">
+              <h1 class="display-1 text-primary">Communication Skill.</h1>
+              <p class="lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, accusantium?</p>
+              <a class="btn btn-primary btn-transition" href="./index3.html">Read article <i class="bi-chevron-right small ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- End Hero -->
+
+    <!-- Card Grid -->
+    <div class="container content-space-sm-2">
+        <!-- Title -->
+        <div class="w-md-75 text-center mx-md-auto mb-9">
+            <h2>Our Featured courses</h2>
+            <p>Discover your perfect program in our courses.</p>
+        </div>
+        <!-- End Title -->
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
+            <div class="col mb-5">
+                <!-- Card -->
+                <div class="card card-bordered h-100 course-card">
+                    <!-- Card Pinned -->
+                    <div class="card-pinned">
+                        <img class="card-img-top" src="../../static/img/480x320/img12.jpg" alt="Image Description">
+                    </div>
+                    <!-- End Card Pinned -->
+                    <div class="card-gradient">
+                        <div class="card-body">
+                        <div class="mb-3">
+                            <h3 class="card-title">
+                                <a class="text-dark" href="./course-overview.html">Project planning and the logical framework</a>
+                            </h3>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <ul class="list-inline list-separator small ms-auto">
+                                    <li class="list-inline-item">
+                                        <i class="bi-book me-1"></i> 10 lessons
+                                    </li>
+                                    <li class="list-inline-item me-auto">
+                                        <i class="bi-clock me-1"></i> 3h 25m
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Col -->
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                    <!-- End Card Body -->
+
+                    <!-- Card Footer -->
+                    <div class="card-footer pt-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="btn btn-sm btn-success btn-transition text-white"  href="./course-overview.html">Preview</a>
+                        </div>
+                    </div>
+                    <!-- End Card Footer -->
+                    </div>
+                    <!-- Card Body -->
+                    
+                </div>
+                <!-- End Card -->
+            </div>
+            <!-- End Col -->
+        </div>
+        <!-- End Row -->
+
+        <div class="text-center">
+            <a class="btn btn-link" href="../demo-course/courses.html">See all courses <i class="bi-chevron-right small ms-1"></i></a>
+        </div>
+    </div>
+    <!-- End Card Grid -->
+    </main>
+     
+<!-- ========== END MAIN CONTENT ========== -->
+{% endblock content %}
+{% block js %}
+{% endblock %}
