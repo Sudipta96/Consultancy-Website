@@ -67,7 +67,7 @@ class Company(models.Model):
         return self.name  
     
     @property
-    def num_of_students(self):
+    def number_of_students(self):
         return len(self.company_internship.all())
     
     class Meta:
@@ -111,7 +111,7 @@ class SuccessStory(models.Model):
     student = models.ForeignKey(Account, related_name="success_story_holder", on_delete=models.SET_NULL, null=True, help_text="The person who belongs to the story")
     student_bio = models.TextField(max_length=255, help_text="This bio will be displayed in sucess story page.")
     company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, help_text="The company name where the student got internship or placement") 
-    card_image = ProcessedImageField(upload_to=get_success_story_card_image_file_path,
+    image_thumbnail = ProcessedImageField(upload_to=get_success_story_card_image_file_path,
                                 default="default/default_card.jpg",
                                 validators=[FileExtensionValidator( ['jpg','png']), validate_success_story_card_image_file_size],
                                 processors=[ResizeToFill(480, 320)],
@@ -120,6 +120,7 @@ class SuccessStory(models.Model):
                                 help_text="This image will be displayed in list view card")
     card_intro = models.TextField(max_length=255, help_text="This introduction will be displayed in list card")
     story_tagline = models.CharField(max_length=150)
+    slug = models.SlugField(max_length=80, unique=True)
     story = RichTextUploadingField(max_length=3000, help_text="The success story")
     edited_by = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, help_text="The person who create or edit the story")
     created_at = models.DateTimeField(auto_now_add=True)

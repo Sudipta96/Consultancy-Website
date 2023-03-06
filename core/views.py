@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
+from .forms import ContactUsForm
 # Create your views here.
 def index(request):
     preamble_obj = Preamble.objects.latest("id")
@@ -123,3 +124,18 @@ def guest_speaker_view(request):
       "hero_section": hero_section,
     }
     return render(request, "resource-persons/guest-speakers.html",context=context)
+
+def contact_us_view(request):
+    context = {}
+    if request.method == "POST":
+        contact_form = ContactUsForm(request.POST)
+        if contact_form.is_valid():
+            print("form is valid")
+            contact_form.save()
+            messages.success(request, "Your message is received successfully")
+            return redirect("core:contact_us")
+        else:
+            print(contact_form.errors)
+            messages.warning(request, "Your submitted data is not valid. Please try again..")
+            context["contact_form"] = contact_form
+    return render(request, "contact/contact-us.html", context=context)

@@ -17,6 +17,6 @@ urlpatterns = [
     path("resource-persons/managing-body", views.managing_body_view, name="managing-body"),
     path("resource-persons/parmanent-speakers", views.parmanent_speaker_view, name="parmanent-speakers"),
     path("resource-persons/guest-speakers", views.guest_speaker_view, name="guest-speakers"),
+    path("contact-us/", views.contact_us_view, name="contact_us"),
     
-
 ]

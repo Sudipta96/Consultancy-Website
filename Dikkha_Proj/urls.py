@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('skills/', include('skills.urls')),
     path("student-forum/", include("student_forum.urls")),
+    path("dashboard/", include("dashboard.urls")),
 
     # account
     path("accounts/", include("accounts.urls")),

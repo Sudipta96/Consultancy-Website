@@ -1,0 +1,159 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+<style>
+    .hero{
+          position: relative;
+          min-width: 100vh;
+          min-height: 100vh;
+          /* max-width: 100vh; */
+          /* max-height: 100vh; */
+        }
+        .hero > .hero-context {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(
+          rgba(0,0,0,1),
+          rgba(0,0,0,.7),
+          rgba(0,0,0,.4),
+          rgba(0,0,0,0));
+        }
+</style>
+{% endblock %}
+{% block content %}
+<!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+     <!-- Hero -->
+     <div class="bg-img-start bg-dark" style="background-image: url(./assets/img/1920x1080/img4.jpg); min-width: 100vh; min-height: 50vh;">
+        <div class="d-md-flex content-space-3 content-space-md-0">
+          <!-- <div class="container d-md-flex justify-content-md-center align-items-md-center flex-md-column min-vh-md-100 text-center">
+            <div class="w-lg-50 mt-3">
+              <h1 class="display-1 text-primary">Soft Skill.</h1>
+              <p class="lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, accusantium?</p>
+              <a class="btn btn-primary btn-transition" href="./index3.html">Read article <i class="bi-chevron-right small ms-1"></i></a>
+            </div>
+          </div> -->
+          <div class="container content-space-2 content-space-lg-3" style="margin-top: 4rem;">
+            <div class="w-lg-65 text-center mx-lg-auto">
+                <span class="badge bg-warning text-dark rounded-pill mb-3">Student success story</span>
+                <h1 class="text-white mb-0">{{story.story_tagline}}</h1>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- End Hero -->
+
+    <div class="container-fluid px-0 position-absolute" style="z-index: 999; top:0;">
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} text-center alert-dismissible fade show" style="border-radius: 0;" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+    </div>
+
+  <!-- End Hero Section -->
+
+     <!-- Content -->
+     <div class="container content-space-1 content-space-lg-0">
+        <div class="row">
+            <div class="col-lg-4 mt-lg-n10 mb-7 mb-lg-0">
+                <!-- Sticky Block -->
+                <div id="stickyBlockStartPoint">
+                    <div class="js-sticky-block" data-hs-sticky-block-options='{
+               "parentSelector": "#stickyBlockStartPoint",
+               "targetSelector": "#header",
+               "breakpoint": "lg",
+               "startPoint": "#stickyBlockStartPoint",
+               "endPoint": "#stickyBlockEndPoint",
+               "stickyOffsetTop": 20
+             }'>
+                        <!-- Card -->
+                        <div class="card">
+                            <!-- <div class="card-header border-bottom text-center">
+                                <img class="avatar avatar-xxl avatar-4x3" src="./assets/img/author/author.jpg" alt="Logo">
+                            </div> -->
+                            <div class="card-body">
+                                <!-- Avatar -->
+                                <div class="d-lg-block text-center mb-5">
+                                  <div class="avatar avatar-xxl avatar-circle mb-3">
+                                    <img class="avatar-img" src="{{story.student.avatar.url}}" alt="Image Description">
+                                    <!-- <img class="avatar-status avatar-lg-status" src="./assets/svg/illustrations/top-vendor.svg" alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user"> -->
+                                  </div>
+                                  
+                                  <h4 class="card-title mb-0">{{story.student.fullname}}</h4>
+                                  <p class="card-text small">{{story.student.email}}</p>
+                                  
+                                  <p class="text-start">{{story.student_bio}}</p>
+
+                                </div>
+                                <!-- End Avatar -->
+                            </div>
+                        </div>
+                        <!-- End Card -->
+                    </div>
+                </div>
+                <!-- Sticky Block -->
+            </div>
+            <!-- End Col -->
+
+            <div class="col-lg-8 content-space-t-lg-2">
+                <div class="ps-lg-4">
+                     {{story.story|safe}}
+                    <!-- End Sticky End Point -->
+                    <div id="stickyBlockEndPoint"></div>
+                    <div class="content-space-2"></div>
+                </div>
+            </div>
+            <!-- End Col -->
+        </div>
+        <!-- End Row -->
+    </div>
+    <!-- End Content -->
+
+</main>
+  {% endblock %}
+  {% block js %}
+   <!-- JS Plugins Init. -->
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+       
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+    
+    })()
+</script>
+  {% endblock %}

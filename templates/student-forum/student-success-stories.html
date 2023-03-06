@@ -1,0 +1,139 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<main id="content" role="main">
+    <!-- Hero Section-->
+    <div class="bg-img-center bg-dark" style="background-image: url({{our_mission_obj.index_page_image.url}});">
+        <div class="container content-space-2 content-space-lg-3">
+        <div class="w-md-65 w-lg-35">
+            <div class="mb-4">
+            <h2 class="h1 text-white">Wear your pride</h2>
+            <p class="text-white">Outdo the sun and refresh your workout with greys, whites and dark brights.</p>
+            </div>
+            <a class="btn btn-light btn-transition rounded-pill" href="#">Shop the collection</a>
+        </div>
+        </div>
+        <div class="container-fluid px-0 position-absolute" style="z-index: 999; top:0;">
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}} text-center alert-dismissible fade show" style="border-radius: 0;" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+  <!-- End Hero Section -->
+
+<!-- Card Grid -->
+<div class="container content-space-2 content-space-lg-3">
+    <!-- Heading -->
+    <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+        <!-- <h4 class="text-cap">Success stories</h4> -->
+        <h2>Success Stories</h2>
+        <!-- <h2>See how Dikkha is helping teams get organized and work smarter</h2> -->
+    </div>
+    <!-- End Heading -->
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
+        {% for story in success_stories %}
+        <div class="col mb-5 mt-lg-9">
+            <!-- Card -->
+            <div class="card h-100">
+                <img class="card-img-top" src="{{story.image_thumbnail.url}}" alt="Image Description">
+
+                <div class="card-body">
+                    <div class="mb-3">
+                        <!-- <img class="avatar avatar-lg avatar-4x3" src="./assets/svg/brands/amazon.svg" alt="Logo"> -->
+                        <h3 class="text-primary">{{story.company.name }}</h3>
+                    </div>
+                    <p class="card-text">{{ story.card_intro }}</p>
+                </div>
+
+                <div class="card-footer pt-0">
+                    <a class="card-link" href="{% url 'student_forum:student_success_story_detail' story_slug=story.slug  %}">Read story <i class="bi-chevron-right small ms-1"></i></a>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+        <!-- End Col -->
+       
+        {% endfor %}
+    </div>
+    <!-- End Row -->
+
+    <div class="text-center">
+        <a class="btn btn-outline-primary" href="#">View all stories</a>
+    </div>
+</div>
+<!-- End Card Grid -->
+    
+          
+</main>
+<!-- End Main Content -->
+    
+{% endblock content %}
+{% block js %}
+<!-- JS Plugins Init. -->
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+       
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        HSBsValidation.init('.js-validate', {
+            onSubmit: data => {
+                data.event.preventDefault()
+                document.getElementById("contactUsForm").submit()
+            }
+        })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+
+         // INITIALIZATION OF LEAFLET
+        // =======================================================
+        const leaflet = HSCore.components.HSLeaflet.init(document.getElementById('map'))
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            id: 'mapbox/light-v9'
+        }).addTo(leaflet)
+    
+    })()
+</script>
+{% endblock js %}

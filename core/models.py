@@ -4,7 +4,7 @@ from accounts.models import Account
 from django.core.validators import FileExtensionValidator
 # from accounts.validators import validate_account_avatar_file_size
 from django.core.exceptions import ValidationError
-
+from django.core.validators import RegexValidator
 # to validate mobile number
 # from django.core.validators import RegexValidator
 
@@ -46,6 +46,9 @@ class HeroSection(models.Model):
 class Contact_Us(models.Model):
     name = models.CharField(max_length=200, help_text="Your full name")
     email = models.EmailField(verbose_name="email", max_length=60, help_text="Your email address")
+    contact_number = models.CharField(validators=[RegexValidator(r'^(?:\+88)?01[3-9]\d{8}$', message="Contact number must be entered in following formats: +8801757551134, 8801857871165 or 01915604232")],
+                                      max_length = 14, blank=True, null=True,
+                                      help_text="Supported Formats: +8801757551134, 8801757871165 or 01715604232")
     details = models.TextField(max_length=500, help_text="Tell us about your thoughts")
     checked = models.BooleanField(default=False, help_text="format:true means you have checked the contact message")
     received_by = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True, help_text="User who has received the message")

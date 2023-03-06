@@ -1,0 +1,291 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block content %}
+
+
+<!-- Main Content -->
+<main id="content" role="main">
+
+    <!-- Hero Section-->
+    <div class="bg-img-center bg-dark" style="background-image: url({{our_mission_obj.index_page_image.url}});">
+        <div class="container content-space-2 content-space-lg-3">
+        <div class="w-md-65 w-lg-35">
+            <div class="mb-4">
+            <h2 class="h1 text-white">Wear your pride</h2>
+            <p class="text-white">Outdo the sun and refresh your workout with greys, whites and dark brights.</p>
+            </div>
+            <a class="btn btn-light btn-transition rounded-pill" href="#">Shop the collection</a>
+        </div>
+        </div>
+        <div class="container-fluid px-0 position-absolute" style="z-index: 999; top:0;">
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}} text-center alert-dismissible fade show" style="border-radius: 0;" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+  <!-- End Hero Section -->
+    
+    <!-- Hero -->
+    <div class="position-relative bg-img-start" style="background-image: url('../../static/svg/components/card-11.svg');">
+        <div class="container content-space-t-3 content-space-t-lg-3 content-space-b-2 position-relative zi-2">
+            <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+                <h1>Contact Us</h1>
+                <!-- <p>We'd love to talk about how we can help you.</p> -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <a class="card card-transition text-center" style="min-height:230px;">
+                        <div href="#" class="card-body">
+                            <div class="text-primary pt-3 pb-4">
+                                <i class="bi bi-telephone-fill text-success" style="font-size:3rem;"></i>
+                            </div>
+                            <div class="text-primary pt-2 pb-4">
+                                <h4 class="card-title">Contact No.</h4>
+                            </div>
+                            <div class="text-primary pt-3 pb-4">
+                                <h4 class="card-text text-body">01757349975</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- End Col -->
+                <div class="col-md-4 mb-5">
+                    <a class="card card-transition text-center" href="mailto:info@dikkhabd.com" style="min-height:230px;">
+                        <div class="card-body">
+                            <div class="text-primary pt-3 pb-4">
+                                <i class="bi bi-envelope-fill text-primary" style="font-size:3rem;"></i>
+                            </div>
+                            <div class="text-primary pt-2 pb-4">
+                                <h4 class="card-title">Email Address</h4>
+                            </div>
+                            <div class="text-primary pt-3 pb-4">
+                                <h4 class="card-text text-body">info@dikkhabd.com</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- End col -->
+                 
+                    <!-- End Col -->
+                    <div class="col-md-4 mb-5">
+                        <a class="card card-transition text-center" style="min-height:230px;">
+                            <div href="#" class="card-body">
+                                <div class="text-primary pt-3 pb-4">
+                                    <i class="bi bi-geo-alt-fill text-danger" style="font-size:3rem;"></i>
+                                </div>
+                                <div class="text-primary pt-2 pb-4">
+                                    <h4 class="card-title">Location</h4>
+                                </div>
+                                <div class="text-primary pt-3 pb-4">
+                                    <h4 class="card-text text-body">Dhanmondi, Dhaka</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- End col -->
+
+            </div>
+            <!-- End Row -->
+        </div>
+
+    </div>
+    <!-- End Hero -->
+   
+      <!-- Contact Form -->
+      <div class="container content-space-2 content-space-lg-2">
+        <div class="mx-auto" style="max-width: 35rem;">
+            <!-- Card -->
+            <div class="card">
+                <div class="card-body">
+                    <!-- Heading -->
+                    <div class="text-center mb-5 mb-md-9">
+                        <h2>Tell us about yourself</h2>
+                        <p>Whether you have questions or you would just like to say hello, contact us.</p>
+                    </div>
+                    <!-- End Heading -->
+
+                    <!-- Form -->
+                    <form class="js-validate needs-validation" id="contactUsForm" method="POST" action="{% url 'core:contact_us' %}" novalidate>
+                        <div class="row gx-3">
+                            {% csrf_token %}
+                            <div class="col">
+                                <!-- Form -->
+                                <div class="mb-3">
+                                    <label class="form-label" for="hireUsFormLasttName">Name</label>
+                                    <input type="text" class="form-control form-control-lg" name="name" id="id_name" placeholder="Your name" aria-label="Your name" required>
+                                    <span class="invalid-feedback text-danger">Please enter your name.</span>
+                                    {% for error in contact_form.name.errors %}
+                                    <span class="fs-sm text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                    
+                                </div>
+                                <!-- End Form -->
+                            </div>
+                            <!-- End Col -->
+                        </div>
+                        <!-- End Row -->
+
+                        <div class="row gx-3">
+                            <div class="col-sm-6">
+                                <!-- Form -->
+                                <div class="mb-3">
+                                    <label class="form-label" for="email">Email address</label>
+                                    <input type="email" class="form-control form-control-lg" name="email" id="id_email" placeholder="email@site.com" aria-label="email@site.com" required>
+                                </div>
+                                <!-- End Form -->
+                                {% for error in contact_form.email.errors %}
+                                <span class="fs-sm text-white">{{ error }}</span>
+                                {% endfor %}
+                                <span class="invalid-feedback text-danger" id="email_error">Please enter a valid email address.</span>
+                            </div>
+                            <!-- End Col -->
+
+                            <div class="col-sm-6">
+                                <!-- Form -->
+                                <div class="mb-3">
+                                    <label class="form-label" for="contact_number">Contact Number <span class="form-label-secondary">(Optional)</span></label>
+                                    <input type="text" class="js-input-mask form-control form-control-lg" name="contact_number" id="id_contact_number" placeholder="+(xx)xxx-xx-xx-xx-xx" aria-label="+(xx)xxx-xx-xx-xx-xx" data-hs-mask-options='{
+                                        "mask": "+{880}0000000000"
+                                      }'>
+                                    {% for error in contact_form.contact_number.errors %}
+                                        <span class="fs-sm text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                <!-- End Form -->
+                            </div>
+                            <!-- End Col -->
+                        </div>
+                        <!-- End Row -->
+
+                        <!-- Form -->
+                        <div class="mb-3">
+                            <label class="form-label" for="details">Details</label>
+                            <textarea class="form-control form-control-lg" name="details" id="id_details" placeholder="Tell us about your thoughts ..." aria-label="Tell us about your thoughts..." rows="4" required></textarea>
+                            <span class="invalid-feedback text-danger">Please write somthing to send message.</span>
+    
+                            {% for error in contact_form.details.errors %}
+                            <span class="fs-sm text-danger">{{ error }}</span>
+                            {% endfor %}
+                            {% for error in contact_form.non_field_errors %}
+                            <span class="fs-sm text-white">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <!-- End Form -->
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Send inquiry</button>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="form-text">We'll get back to you in 1-2 days.</p>
+                        </div>
+                    </form>
+                    <!-- End Form -->
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+    </div>
+    <!-- End Contact Form -->
+
+    <!-- Leaflet -->
+    <div class="container-fluid mb-3">
+        <div class="overflow-hidden">
+            <div id="map" class="leaflet" data-hs-leaflet-options='{
+         "map": {
+           "scrollWheelZoom": false,
+           "coords": [23.746466, 90.376015]
+         },
+         "marker": [
+           {
+             "coords": [23.746466, 90.376015],
+             "icon": {
+               "iconUrl": "./assets/svg/components/map-pin.svg",
+               "iconSize": [50, 45]
+             },
+             "popup": {
+               "text": "Dhanmondi, Dhaka"
+             }
+           }
+         ]
+        }'></div>
+        </div>
+    </div>
+    <!-- End Leaflet -->
+    
+          
+</main>
+<!-- End Main Content -->
+    
+{% endblock content %}
+{% block js %}
+<!-- JS Plugins Init. -->
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+        // INITIALIZATION OF INPUT MASK
+        // =======================================================
+            HSCore.components.HSMask.init('.js-input-mask')
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        HSBsValidation.init('.js-validate', {
+            onSubmit: data => {
+                data.event.preventDefault()
+                document.getElementById("contactUsForm").submit()
+            }
+        })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+
+         // INITIALIZATION OF LEAFLET
+        // =======================================================
+        const leaflet = HSCore.components.HSLeaflet.init(document.getElementById('map'))
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            id: 'mapbox/light-v9'
+        }).addTo(leaflet)
+    
+    })()
+</script>
+{% endblock js %}

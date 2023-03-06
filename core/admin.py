@@ -249,7 +249,7 @@ class OurStrategyAdmin(admin.ModelAdmin):
 class ContactUsAdmin(admin.ModelAdmin):
     list_display = ("name", "email", "checked", "received_by", "created_at")
     fieldsets = (
-          ('Contact Message', {'fields':("name","email","details","checked")}),
+          ('Contact Message', {'fields':("name","email","contact_number","details","checked")}),
      )
     
     def save_model(self, request, obj, form, change):

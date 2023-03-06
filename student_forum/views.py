@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-@login_required
+# @login_required
 def student_feedback_view(request):
     # student_    StudentFeedback.objects.all().distinct("feedback_given_by")
 
@@ -35,4 +35,20 @@ def student_feedback_view(request):
 
     return render(request, "student-forum/student-feedback.html", context=context)
 
+def student_success_stories_view(request):
+    success_stories = SuccessStory.objects.all()
+    context = {
+        "success_stories": success_stories,
+    }
+    return render(request, "student-forum/student-success-stories.html", context=context)
 
+def student_success_story_detail_view(request, story_slug):
+    story_qs = SuccessStory.objects.filter(slug=story_slug)
+    if story_qs:
+        story = story_qs[0]
+    else:
+        story = None
+    context = {
+        "story": story,
+    }
+    return render(request, "student-forum/student-success-story.html", context=context)
