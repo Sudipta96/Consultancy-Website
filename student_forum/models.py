@@ -3,7 +3,7 @@ import string
 import random
 from django.db import models
 from accounts.models import Account 
-from resume.models import University
+# from resume.models import University
 
 # for validation
 # to validate mobile number
@@ -29,8 +29,8 @@ class StudentFeedback(models.Model):
         ("5", "FIVE STAR")
     )
     name = models.CharField(max_length=200, help_text="Your Full Name")
-    email = models.EmailField(verbose_name="email", max_length=60, help_text="Your Email Address")
-    university = models.ForeignKey(University, on_delete=models.PROTECT, related_name="feedbacker_university", help_text="University Name")
+    # email = models.EmailField(verbose_name="email", max_length=60, help_text="Your Email Address")
+    # university = models.ForeignKey(University, on_delete=models.PROTECT, related_name="feedbacker_university", help_text="University Name")
     review = models.TextField(max_length=400, help_text="Write your review")
     rating = models.CharField(choices=RATING_CHOICES,max_length=10,default="3")
     feedback_given_by = models.ForeignKey(Account, null=True, blank=True, on_delete=models.CASCADE, related_name="feedback_given_by")
@@ -177,16 +177,3 @@ class Admission(models.Model):
     def __str__(self):
         return self.full_name
 
-class Certificate(models.Model):
-    student = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="student_certificate")
-    certificate_id = models.CharField(max_length=10,unique=True)
-    certificate = models.FileField(blank=True, help_text="certificate file")
-    description = models.TextField(blank=True, max_length=300)
-    created_by = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, help_text="The person who create the certificate")
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.student.username
-    
-    def generate_certificate_id(size=10, chars=string.ascii_uppercase + string.digits):
-        return ''.join(random.choice(chars) for _ in range(size))

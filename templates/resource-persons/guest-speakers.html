@@ -1,0 +1,219 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+<style>
+    .hero{
+          position: relative;
+          min-width: 100vh;
+          min-height: 100vh;
+          /* max-width: 100vh; */
+          /* max-height: 100vh; */
+        }
+        .hero > .hero-context {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(
+          rgba(0,0,0,1),
+          rgba(0,0,0,.7),
+          rgba(0,0,0,.4),
+          rgba(0,0,0,0));
+        }
+</style>
+{% endblock %}
+{% block content %}
+<!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+        <!-- Hero Section-->
+        <div class="bg-img-center bg-dark" style="background-image: url({{hero_section.image.url}});">
+            <div class="container content-space-2 content-space-lg-3">
+            <div class="w-md-65 w-lg-35">
+                <div class="mb-4">
+                <h2 class="h1 text-white">{{hero_section.heading}}</h2>
+                <p class="text-white">{{hero_section.short_note}}</p>
+                </div>
+                {% if hero_section.link and hero_section.link_text %}
+                <a class="btn btn-light btn-transition rounded-pill" href="{{hero_section.link}}">{{hero_section.link_text}}</a>
+                {% endif %}
+                <!-- <a class="btn btn-light btn-transition rounded-pill" href="#">Shop the collection</a> -->
+            </div>
+            </div>
+        </div>
+        <!-- End Hero Section -->
+        <!-- Team -->
+        <div class="container content-space-2 content-space-lg-3">
+            <!-- Heading -->
+            <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+            <!-- <span class="text-cap">Our team</span> -->
+            <!-- <h2>Creative minds</h2> -->
+            <h2 class="">OUR GUEST SPEAKERS</h2>
+            </div>
+            <!-- End Heading -->
+        
+            <div class="row gx-3 mb-5">
+            {% for person in guest_speakers %}
+            <div class="col-sm-6 col-lg-3 mb-3" data-bs-toggle="modal" data-bs-target="#personModal-{{person.id}}">
+                <!-- Card -->
+                <div class="card card-transition h-100">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <div class="avatar avatar-xxxl avatar-circle mb-4">
+                        <img class="avatar-img" src="{{person.avatar_thumbnail.url}}" alt="Image Description">
+                        </div>
+                        </div>
+                    
+                        <!-- <span class="card-subtitle text-center">Founder / CEO</span> -->
+                        <h4 class="card-title text-center">{{person.name}}</h4>
+                        <p class="card-text text-justify">{{person.description|safe|truncatewords:25}}<span><a href="#" data-bs-toggle="modal" data-bs-target="#personModal-{{person.id}}">See More</a></span>
+                        </p>
+                    </div>
+        
+                    <!-- <div class="card-footer pt-0">
+                        
+                    </div> -->
+                </div>
+                <!-- End Card -->
+            </div>
+            <!-- End Col -->
+            {% endfor %}
+          </div>
+        <!-- End Row -->
+        </div>
+       <!-- End Team -->
+     
+    </main>
+
+     <!-- ========== MODAL POP UP ========== -->
+    {% for person in guest_speakers %}
+    <div class="modal fade" id="personModal-{{person.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-close">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- End Header -->
+
+                <!-- Body -->
+                <div class="modal-body">
+                    <!-- Instructor Information -->
+                    <!-- Heading -->
+                    <div class="text-center mb-7">
+                        <h2>Instructor</h2>
+                        <p>Know about our Instructor</p>
+                    </div>
+                    <!-- End Heading -->
+
+                    <div class="container">
+                        <div class="row">
+                            <!-- for small screen -->
+                            <div class="col-sm-9 d-block d-lg-none mb-4">
+                                    <div class="mb-3 me-3">
+                                      <img class="avatar avatar-xxxl" src="{{person.avatar_thumbnail.url}}" alt="Image Description">
+                                    <!-- <img class="card-img rounded-2" src="./assets/img/400x500/img28.jpg" alt="Image Description"> -->
+                                    </div>
+                                    <div class="mb-2">
+                                        <h4 class="mb-1 text-primary">{{person.name}}</h4>
+                                        {% if person.organization_name and person.organization_designation %}
+                                        <p class="fw-semibold">{{person.organization_designation }}, {{person.organization_name }}</p>
+                                        {% endif %}
+                                    </div>
+                            </div>
+                            <!-- end small screen -->
+       
+                            <div class="d-none d-lg-block col-lg-5 mb-4 mb-sm-0">
+                                <div class="mb-3">
+                                  <!-- <img class="avatar avatar-xxxl avatar-circle" src="{{person.avatar_thumbnail.url}}" alt="Image Description"> -->
+                                <img class="card-img rounded-2" src="{{person.avatar_thumbnail.url}}" alt="Image Description">
+                                </div>
+                                <div class="mb-2 text-primary">
+                                    <h4 class="mb-1">{{person.name}}</h4>
+                                    {% if person.organization_name and person.organization_designation %}
+                                    <p class="fw-semibold">{{person.organization_designation }}, {{person.organization_name }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <!-- End Col -->
+                
+                            <div class="col-lg-7">
+                            <!-- Info -->
+                            
+                            <div>
+                                {{person.description|safe}}
+                            </div>
+                            
+                            <!-- End Info -->
+                            </div>
+                            <!-- End Col -->
+                        </div>
+                       <!-- End Row -->
+                    </div>
+                      
+                    <!-- End of Instructor Information -->
+
+                </div>
+                <!-- End Body -->
+
+                <!-- Footer -->
+                <!-- insert footer if necessary -->
+                <!-- End Footer -->
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+     
+<!-- ========== END MAIN CONTENT ========== -->
+{% endblock content %}
+{% block js %}
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        HSBsValidation.init('.js-validate', {
+            onSubmit: data => {
+                data.event.preventDefault()
+                alert('Submited')
+            }
+        })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+    })()
+</script>
+{% endblock %}

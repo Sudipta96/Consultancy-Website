@@ -1,0 +1,179 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+
+<style>
+    .hero > .hero-context {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(
+          rgba(0,0,0,1),
+          rgba(0,0,0,.7),
+          rgba(0,0,0,.4),
+          rgba(0,0,0,0));
+        }
+    .signin-form-col{
+        background: rgba(255, 255,255, 0.25);
+        backdrop-filter: blur(15px);
+        border-color: #fff;
+        border-bottom: 1px solid rgba(255, 255,255, 0.5);
+        border-right: 1px solid rgba(255, 255,255, 0.5);
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+         <!-- Hero -->
+         <div class="bg-img-start hero" style="background-image: url(../../static/img/1920x1080/img4.jpg); min-width: 100vh; min-height: 100vh;">
+            <div class="container content-space-2 content-space-t-lg-3 content-space-b-lg-3">
+                <div class="row">
+                    <div class="col-10 col-md-6 card mx-auto signin-form-col">
+                        <div class="mt-5 px-3">
+                            <!-- Heading -->
+                            <div class="text-center mb-5 mb-md-7">
+                                <h1 class="h2 text-white">Welcome to Dikkha</h1>
+                                <p class="text-white">Fill out the form to get started.</p>
+                            </div>
+                            <!-- End Heading -->
+                            <!-- Form -->
+                            <form class="js-validate needs-validation" id="signinForm" novalidate method="POST" action="{% url 'accounts:signin' %}">
+                                {% csrf_token %}
+                                    <div class="row gx-3">
+                                        <div class="col">
+                                            <!-- Email -->
+                                            <div class="mb-3">
+                                                <label class="form-label text-white" for="email">Your email</label>
+                                                <input type="email" class="form-control form-control-lg" name="email" id="email" placeholder="email@gmail.com" aria-label="email@gmail.com" required>
+                                                
+                                                {% for error in signin_form.email.errors %}
+                                                <span class="fs-sm text-white">{{ error }}</span>
+                                                {% endfor %}
+                                                <span class="invalid-feedback text-white" id="email_error">Please enter a valid email address.</span>
+                                            </div>
+                                            <!-- End Email -->
+                                        </div>
+                                    </div>  
+                                    <div class="row-gx-3">
+                                        <div class="col">
+                                            <!-- Form -->
+                                            <div class="mb-3 form-field">
+                                                <label class="form-label text-white" for="password">Password</label>
+                                                <input class="form-control form-control-lg" type="password" name="password" id="id_password" placeholder="Password" required="">
+                                                <!-- <div class="input-group input-group-merge" data-hs-validation-validate-class>
+                                                    <input type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" required placeholder="your password" aria-label="your password" required data-hs-toggle-password-options='{
+                                                    "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
+                                                    "defaultClass": "bi-eye-slash",
+                                                    "showClass": "bi-eye",
+                                                    "classChangeTarget": ".js-toggle-passowrd-show-icon-1"
+                                                }'>
+                                                    <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:;">
+                                                    <i class="js-toggle-passowrd-show-icon-1 bi-eye"></i>
+                                                    </a>
+                                                </div> -->
+                                                {% for error in signin_form.password.errors %}
+                                                <span class="fs-sm text-white">{{ error }}</span>
+
+                                                {% endfor %}
+                                                <span class="invalid-feedback text-white" id="password_error">Please enter your valid password.</span>
+                                                {% for error in signin_form.non_field_errors %}
+                                                <span class="fs-sm text-white">{{ error }}</span>
+                                                <span class="invalid-feedback text-white">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <!-- End Form -->
+                                        </div>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col">
+                                        <div class="d-grid mb-3">
+                                        <button type="submit" class="btn btn-success btn-lg" id="submitBtn">Sign In</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                <div class="text-center">
+                                    <p class="text-white">Don't have an account? <a class="link" href="{% url 'accounts:signup' %}">SignUp here</a></p>
+                                </div>
+                            </form>
+                            <!-- End Form -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container-fluid px-0 position-absolute" style="z-index: 999; top:0;">
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}} text-center alert-dismissible fade show" style="border-radius: 0;" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+        </div>
+        <!-- End Hero -->
+    </main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+{% endblock content %}
+{% block js %}
+<script>
+    // INITIALIZATION OF BOOTSTRAP VALIDATION
+    // =======================================================
+    HSBsValidation.init('.js-validate', {
+        onSubmit: data => {
+            data.event.preventDefault()
+            document.getElementById("signinForm").submit();
+        }
+    })
+
+    // let signInForm = document.getElementById("signinForm");
+    
+    // function displayError(elemId){
+        
+    //     document.getElementById(elemId).style.display = "block";
+    // }
+
+    // let inputItems = document.getElementsByTagName("input");
+    // inputItems.forEach(element => {
+    //     console.log(element);
+    //     element.addEventListener("change", e=>{
+    //     console.log("called...");
+    //     console.log(element.parentElement);
+    //     })
+    // });
+            
+    
+    // signInForm.addEventListener("submit", e=>{
+    //     e.preventDefault();
+    //     let emailError = passwordError = true;
+
+    //     let email = signInForm.elements["email"].value;
+    //     let password = signInForm.elements["password"].value;
+        
+       
+
+    //     if(email == ""){
+    //         displayError("email_error")
+    //     }else{
+    //         emailError = false;
+    //     }
+    //     if(password == ""){
+    //         displayError("password_error");
+    //     }else {
+    //         passwordError = false
+    //     }
+
+    //     if((emailError || passwordError) == true) {
+    //        return false;
+    //     }else{
+    //         signInForm.submit();
+    //     }
+    // })
+
+</script>
+{% endblock js %}

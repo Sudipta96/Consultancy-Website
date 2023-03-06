@@ -1,5 +1,6 @@
 from django.db import models
-from student_forum.models import University,Company
+# from student_forum.models import University,Company
+from student_forum.models import Company
 
 # Create your models here.
 class RegistrationInfo(models.Model):
@@ -23,13 +24,13 @@ class AdmissionInfo(models.Model):
         verbose_name = "Admission Num/Month"
         verbose_name_plural = "Admission Num/Month"
 
-class StudentsPerUniversityInfo(models.Model):
-    university = models.ForeignKey(University, on_delete=models.CASCADE, related_name="university_per_info")
-    number_of_students = models.IntegerField(default=0)
+# class StudentsPerUniversityInfo(models.Model):
+#     # university = models.ForeignKey(University, on_delete=models.CASCADE, related_name="university_per_info")
+#     number_of_students = models.IntegerField(default=0)
 
-    class Meta:
-        verbose_name = "No. of Students/University"
-        verbose_name_plural = "No. of Students/University"
+#     class Meta:
+#         verbose_name = "No. of Students/University"
+#         verbose_name_plural = "No. of Students/University"
 
 class StudentsPerCompanyInfo(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="students_per_company_info")

@@ -1,0 +1,55 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+
+<style>
+    .hero > .hero-context {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(
+          rgba(0,0,0,1),
+          rgba(0,0,0,.7),
+          rgba(0,0,0,.4),
+          rgba(0,0,0,0));
+        }
+    .signup-form{
+        background: rgba(255, 255,255, 0.25);
+        backdrop-filter: blur(15px);
+        border-color: #fff;
+        border-bottom: 1px solid rgba(255, 255,255, 0.5);
+        border-right: 1px solid rgba(255, 255,255, 0.5);
+    }
+    .tab{
+        display:none;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+         <!-- Hero -->
+         <div class="bg-img-start hero" style="background-image: url(../../static/img/1920x1080/img4.jpg); min-width: 100vh; min-height: 100vh;">
+            <div class="container content-space-2 content-space-t-lg-3 content-space-b-lg-3">
+                <div class="row">
+                    <div class="col-10 col-md-6 card mx-auto signup-form">
+                        <h1>Dikkha Website</h1>
+                        <a href="#">Sign In</a>
+                        <span>/</span>
+                        <a href="{% url 'accounts:signup' %}">Sign Up</a>
+                        <hr>
+                        <p>A email has been sent to activate your account</p>
+                        <p>Please confirm your email address to complete the sign up</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Hero -->
+    </main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+{% endblock content %}
+{% block js %}
+{% endblock js %}

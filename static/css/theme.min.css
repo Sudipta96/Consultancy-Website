@@ -5095,7 +5095,7 @@ fieldset:disabled .btn {
 .alert-info {
     --bs-alert-color: #056372;
     --bs-alert-bg: #ceedf2;
-    --bs-alert-border-color: #b5e4ec
+    --bs-alert-border-color: #b5e4ec;
 }
 
 .alert-info .alert-link {

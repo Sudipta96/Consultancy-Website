@@ -60,8 +60,12 @@
                               <!-- <i class="ri-check-double-line"></i> -->
                               <i class="bi bi-person mx-1"></i>
                               <span>
-                               <a href="" class="text-light">Login</a> <span> | </span>
-                               <a href="./page-signup-simple.html" class="text-light">Register</a>
+                                {% if request.user.is_authenticated %}
+                                <a href="{% url 'accounts:signout' %}" class="text-light">Sign Out</a>
+                                {% else %}
+                                <a href="{% url 'accounts:signin' %}" class="text-light">SignIn</a> <span> | </span>
+                                <a href="{% url 'accounts:signup' %}" class="text-light">SignUp</a>
+                                {% endif %}
                             </div>
                          </div>   
                     </div>
@@ -110,14 +114,14 @@
 
                         <!-- Mega Menu -->
                         <div class="hs-sub-menu dropdown-menu about-mega-menu" aria-labelledby="aboutMegaMenu" style="min-width: 14rem;">
-                            <a class="dropdown-item " href="./preamble.html">Preamble</a>
-                            <a class="dropdown-item " href="./what-we-are.html">What We Are</a>
-                            <a class="dropdown-item " href="./what-we-do.html">What We Do</a>
-                            <a class="dropdown-item " href="./our-vision.html">Our Vision</a>
-                            <a class="dropdown-item " href="./our-mission.html">Our Mission</a>
-                            <a class="dropdown-item " href="./our-target-audience.html">Our Target Audience</a>
-                            <a class="dropdown-item " href="./our-aim-objectives.html">Our Aim & Objectives</a>
-                            <a class="dropdown-item " href="./our-strategies.html">Our Strategies</a>
+                            <a class="dropdown-item " href="{% url 'core:preamble' %}">Preamble</a>
+                            <a class="dropdown-item " href="{% url 'core:what_we_are' %}">What We Are</a>
+                            <a class="dropdown-item " href="{% url 'core:what_we_do' %}">What We Do</a>
+                            <a class="dropdown-item " href="{% url 'core:our_vision' %}">Our Vision</a>
+                            <a class="dropdown-item " href="{% url 'core:our_mission' %}">Our Mission</a>
+                            <a class="dropdown-item " href="{% url 'core:our_target_audience' %}">Our Target Audience</a>
+                            <a class="dropdown-item " href="{% url 'core:our_aim_objectives' %}">Our Aim & Objectives</a>
+                            <a class="dropdown-item " href="{% url 'core:our_strategy' %}">Our Strategies</a>
                         </div>
                         <!-- End Mega Menu -->
                     </li>
@@ -206,67 +210,19 @@
                     </li>
                     <!-- End DashBoard -->
 
-                    <!-- Pages -->
-                    <li class="hs-has-mega-menu nav-item">
-                        <a id="pageMegaMenu" class="hs-mega-menu-invoker nav-link " href="#" role="button" aria-expanded="false">Pages</a>
+                    <!-- Account -->
+                    <li class="hs-has-sub-menu nav-item">
+                        <a id="accountMegaMenu" class="hs-mega-menu-invoker nav-link " href="#" role="button" aria-expanded="false">Account</a>
+
                         <!-- Mega Menu -->
-                        <div class="hs-mega-menu dropdown-menu w-100" aria-labelledby="pageMegaMenu" style="min-width: 30rem;">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="navbar-dropdown-menu-inner">
-                                        <div class="row">
-                                            <div class="col-sm mb-3 mb-sm-0">
-                                                <span class="dropdown-header">Landing Page</span>
-                                                <a class="dropdown-item " href="./index.html">Landing Page 1</a>
-                                                <a class="dropdown-item " href="./simple-index.html">Landing Page 1 Simple</a>
-                                                <a class="dropdown-item " href="./Header-2/index2.html">Landing Page 2</a>
-                                                <a class="dropdown-item " href="./Header-3/index3.html">Landing Page 3</a>
-                                                <a class="dropdown-item " href="./landing-page-4.html">Landing Page 4</a>
-                                                <span class="dropdown-header">Skills</span>
-                                                <a class="dropdown-item " href="./soft-skills.html">Soft Skill</a>
-                                                <a class="dropdown-item " href="./computer-skills.html">Computer Skill</a>
-                                                <a class="dropdown-item " href="./free-courses.html">Free Courses</a>
-                                                <a class="dropdown-item " href="./course-overview.html">Course Overview</a>
-                                                <a class="dropdown-item " href="./free-resources.html">Free Resources</a>
-                                            </div>
-                                            <!-- End Col -->
-                                            <div class="col-sm">
-                                                <span class="dropdown-header">Resource Persons</span>
-                                                <a class="dropdown-item " href="./managing-body.html">Managing Body</a>
-                                                <a class="dropdown-item " href="./full-time-instructors.html">Full Time Instructor</a>
-                                                <a class="dropdown-item " href="./guest-lecturer.html">Guest Teacher</a>
-                                                <span class="dropdown-header">Student Forum</span>
-                                                <a class="dropdown-item " href="./student-feedback.html">Student FeedBack</a>
-                                                <a class="dropdown-item " href="./page-success-stories.html">Student Success Stories</a>
-                                                <a class="dropdown-item " href="./page-success-story-1.html">Student Success Story</a>
-                                                <span class="dropdown-header">NewsLetter</span>
-                                                <a class="dropdown-item " href="./newsletter.html">NewsLetter</a>
-                                                <a class="dropdown-item " href="./blog-article.html">Single News/Event</a>
-                                            </div>
-                                            <!-- End Col -->
-                                            <div class="col-sm">
-                                                <span class="dropdown-header">Contact Us</span>
-                                                <a class="dropdown-item " href="./page-contacts-us.html">Contact</a>
-                                                <span class="dropdown-header">DashBoard</span>
-                                                <a class="dropdown-item " href="./dashboard.html">DashBoard</a>
-                                                <span class="dropdown-header">Account</span>
-                                                <a class="dropdown-item " href="./page-signup-simple.html">SignUp Page</a>
-                                                <a class="dropdown-item " href="./page-login-simple.html">SignIn Page</a>
-                                                <a class="dropdown-item " href="./account-profile.html">Account Profile</a>
-                                                <a class="dropdown-item " href="./account-security.html">Account Security</a>
-                                            </div>
-                                            <!-- End Col -->
-                                        </div>
-                                        <!-- End Row -->
-                                    </div>
-                                </div>
-                                <!-- End Col -->
-                            </div>
-                            <!-- End Row -->
+                        <div class="hs-sub-menu dropdown-menu" aria-labelledby="accountMegaMenu" style="min-width: 14rem;">
+                            <a class="dropdown-item " href="#">My Profile</a>
+                            <a class="dropdown-item " href="#">My Address</a>
+                            <a class="dropdown-item " href="#">Company List</a>
                         </div>
                         <!-- End Mega Menu -->
                     </li>
-                    <!-- End Pages -->
+                    <!-- End Account -->
                 </ul>
             </div>
         </div>

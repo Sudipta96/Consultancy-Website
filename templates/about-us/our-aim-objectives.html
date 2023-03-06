@@ -1,0 +1,184 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block content %}
+
+
+<!-- Main Content -->
+<main id="content" role="main">
+    {% if our_aim_obj %}
+    <!-- Hero Section-->
+    <div class="bg-img-center" style="background-image: url({{our_aim_obj.index_page_image.url}});">
+        <div class="container content-space-2 content-space-lg-3">
+        <div class="w-md-65 w-lg-35">
+            <div class="mb-4">
+            <h2 class="h1 text-white">Wear your pride</h2>
+            <p class="text-white">Outdo the sun and refresh your workout with greys, whites and dark brights.</p>
+            </div>
+            <a class="btn btn-light btn-transition rounded-pill" href="#">Shop the collection</a>
+        </div>
+        </div>
+    </div>
+  <!-- End Hero Section -->
+
+  <!-- Aim & Objectives -->
+  <div class="position-relative overflow-hidden" id="our-aim">
+    <div class="container content-space-2 content-space-b-lg-3">
+        <!-- Title -->
+        <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+            <!-- <span class="text-cap text-white">Our Aim & Objectives</span> -->
+            <h2 class="">Our Aim & Objectives</h2>
+        </div>
+        <!-- End Title -->
+         
+        <div class="w-md-85 mx-md-auto">
+            <div class="row">
+            <div class="col-lg-6">
+                <div class="pe-lg-4">
+                    <ul class="list-checked list-checked-soft-bg-primary list-checked-lg mb-5">
+                        {% for item in our_aim_obj.aim_item.all %}
+                            {% if not forloop.counter|divisibleby:2 %}
+                            <li class="list-checked-item">{{item.aim}}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- End Col -->
+
+            <div class="col-lg-6">
+                <div class="ps-lg-4">
+                    <ul class="list-checked list-checked-soft-bg-primary list-checked-lg mb-5">
+                        {% for item in our_aim_obj.aim_item.all %}
+                            {% if not forloop.counter|divisibleby:2 %}
+                            <li class="list-checked-item">{{item.aim}}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- End Col -->
+            </div>
+            <!-- End Row -->
+        </div>
+       
+    </div>
+    <!-- shape -->
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 220" style="position:absolute;bottom:0;left:0;">
+        <path fill="#fff" d="M0,96L48,122.7C96,149,192,203,288,197.3C384,192,480,128,576,128C672,128,768,192,864,208C960,224,1056,192,1152,170.7C1248,149,1344,139,1392,133.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg> -->
+    <!-- End of shape -->
+</div>
+<!-- End Aim & Objectives -->
+  {% endif %}
+
+    
+          
+</main>
+<!-- End Main Content -->
+    
+{% endblock content %}
+{% block js %}
+<!-- JS Plugins Init. -->
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        HSBsValidation.init('.js-validate', {
+            onSubmit: data => {
+                data.event.preventDefault()
+                alert('Submited')
+            }
+        })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF SWIPER
+        // =======================================================
+        function loadImage(path) {
+            return new Promise(function(resolve) {
+                const img = new Image()
+
+                img.addEventListener('load', () => {
+                    resolve()
+                })
+
+                img.src = path.replace(/url\(\"(.*?)\"\)/g, '$1')
+            })
+        }
+
+        const $preloader = document.querySelector('.js-swiper-preloader')
+        const promises = [...document.querySelectorAll('.js-swiper-slide-preload')]
+            .map(slide => loadImage(window.getComputedStyle(slide).backgroundImage))
+
+        Promise.all(promises)
+            .then(() => {
+                $preloader.remove()
+
+                var sliderThumbs = new Swiper('.js-swiper-blog-journal-hero-thumbs', {
+                    direction: 'vertical',
+                    watchSlidesVisibility: true,
+                    watchSlidesProgress: true,
+                    slidesPerView: 3,
+                    history: false,
+                    on: {
+                        'afterInit': function(swiper) {
+                            swiper.el.style.opacity = 1
+                            swiper.el.querySelectorAll('.js-swiper-pagination-progress-body-helper')
+                                .forEach($progress => $progress.style.transitionDuration = `${swiper.params.autoplay.delay}ms`)
+                        }
+                    }
+                });
+
+                var swiper = new Swiper('.js-swiper-blog-journal-hero', {
+                    effect: 'fade',
+                    autoplay: true,
+                    loop: true,
+                    pagination: {
+                        el: '.js-swiper-blog-journal-hero-pagination',
+                        clickable: true,
+                    },
+                    thumbs: {
+                        swiper: sliderThumbs
+                    }
+                });
+            })
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+    })()
+</script>
+{% endblock js %}

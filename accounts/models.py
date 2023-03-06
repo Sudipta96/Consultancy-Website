@@ -83,8 +83,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    first_name = models.CharField(blank=True, max_length=100)
-    last_name = models.CharField(blank=True, max_length=100)
+    fullname = models.CharField(max_length=200, help_text="Full Name")
     username = models.CharField(max_length=200, help_text="Username should be unique")
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10)
     contact_number = models.CharField(validators=[RegexValidator(r'^(?:\+?88)?01[3-9]\d{8}$', message="Contact number must be entered in following formats: +8801757551134, 8801857871165 or 01915604232")],
@@ -141,7 +140,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 class Address(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE,related_name="account_address")
-    address_line_1 = models.CharField(max_length=255, help_text="Road/Village/Town/House Info")
+    address_line = models.CharField(max_length=255, help_text="Road/Village/Town/House Info")
     district = models.CharField(max_length=100, help_text="District Name")
     upazilla = models.CharField(max_length=100, help_text="Upazilla Name")
     postal_code = models.IntegerField(blank=True, validators=[MinValueValidator(1000), MaxValueValidator(9350)])

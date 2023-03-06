@@ -16,13 +16,15 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
 from accounts.models import Account
-
+from core.models import HeroSection
 
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=150, help_text="Category name for course")
+    slug = models.SlugField(unique=True)
     description = models.TextField(max_length=500, blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    hero_section = models.OneToOneField(HeroSection, on_delete=models.PROTECT, related_name="category_hero_section")
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -41,6 +43,7 @@ def validate_image_thumbnail_file_size(value):
     else:
         return value
 
+
 class Course(models.Model):
     def get_image_thumbnail_file_path(self, filename):
         return f'courses/{self.name}/image-thumbnail/{filename}'
@@ -52,6 +55,7 @@ class Course(models.Model):
     slug = models.SlugField(max_length=200, unique=True, verbose_name=("course safe URL"))
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="course_category")
     total_duration = models.CharField(max_length=50, help_text="Required: course duration in hours/minutes or in weeks/months format")
+    number_of_lectures = models.IntegerField(null=True, blank=True, help_text="Required: Total number of lessions")
     image_thumbnail = ProcessedImageField(upload_to=get_image_thumbnail_file_path,
                                 default="default/default_card.jpg",
                                 validators=[FileExtensionValidator( ['jpg','png']), validate_image_thumbnail_file_size],
@@ -81,6 +85,18 @@ class Course(models.Model):
     def __str__(self):
         return self.name
     
+class LearningItem(models.Model):
+    course =  models.ForeignKey(Course, on_delete=models.CASCADE, related_name="learning_item")
+    point = models.CharField(max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.point
+
+    class Meta:
+        verbose_name = "What You Wil Learn"    
+        verbose_name_plural = "What You Wil Learn"
+
 class Chapter(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="course_chapter", 
                                        help_text="Required: Choose the course name. \

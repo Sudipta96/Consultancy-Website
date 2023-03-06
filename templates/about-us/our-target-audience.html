@@ -1,0 +1,177 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<main id="content" role="main">
+    {% if our_target_audience_obj %}
+    <!-- Hero Section-->
+    <div class="bg-img-center bg-dark" style="background-image: url({{our_target_audience_obj.hero_section.image.url}});">
+        <div class="container content-space-2 content-space-lg-3">
+        <div class="w-md-65 w-lg-35">
+            <div class="mb-4">
+            <h2 class="h1 text-white">{{our_target_audience_obj.hero_section.heading}}</h2>
+            <p class="text-white">{{our_target_audience_obj.hero_section.short_note}}</p>
+            </div>
+            {% if our_target_audience_obj.hero_section.link and our_target_audience_obj.hero_section.link_text %}
+            <a class="btn btn-light btn-transition rounded-pill" href="{{our_target_audience_obj.hero_section.link}}">{{our_target_audience_obj.hero_section.link_text}}</a>
+            {% endif %}
+            <!-- <a class="btn btn-light btn-transition rounded-pill" href="#">Shop the collection</a> -->
+        </div>
+        </div>
+    </div>
+  <!-- End Hero Section -->
+   <!-- Target Audience -->
+   <div class="position-relative overflow-hidden"  id="target-audience">
+    <!-- Card Grid -->
+    <div class="container content-space-2 content-space-t-lg-2 content-space-b-lg-4">
+        <!-- Heading -->
+        <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+        <!-- <span class="text-cap">Platforms</span> -->
+        <h2 class="h1">Our Target Audience</h2>
+        </div>
+        <!-- End Heading -->
+    
+        <div class="row mb-5">
+        {% for item in our_target_audience_obj.target_item.all %}
+        <div class="col-md-6 col-lg-4 mb-4 mb-md-5 mb-lg-5">
+            <!-- Card -->
+            <div class="card card-lg card-transition h-100 text-center">
+            <div class="card-body">
+                <div class="mb-4">
+                <img class="avatar" src="{{item.icon.file.url}}" alt="Logo">
+                </div>
+                <h3 class="card-title mb-3">{{item.heading }}</h3>
+                <p class="card-text text-body">{{item.short_note}}</p>
+            </div>
+            <!-- <div class="card-footer pt-0">
+                <span class="card-link">Learn more <i class="bi-chevron-right small ms-1"></i></span>
+            </div> -->
+        </div>
+            <!-- End Card -->
+        </div>
+        <!-- End Col -->
+        {% endfor %}
+        </div>
+        
+        
+    </div>
+   <!-- End Card Grid -->
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 220">
+      <path fill="#fff" d="M0,96L48,122.7C96,149,192,203,288,197.3C384,192,480,128,576,128C672,128,768,192,864,208C960,224,1056,192,1152,170.7C1248,149,1344,139,1392,133.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg> -->
+  </div>
+  {% endif %}
+
+    
+          
+</main>
+<!-- End Main Content -->
+    
+{% endblock content %}
+{% block js %}
+<!-- JS Plugins Init. -->
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        HSBsValidation.init('.js-validate', {
+            onSubmit: data => {
+                data.event.preventDefault()
+                alert('Submited')
+            }
+        })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF SWIPER
+        // =======================================================
+        function loadImage(path) {
+            return new Promise(function(resolve) {
+                const img = new Image()
+
+                img.addEventListener('load', () => {
+                    resolve()
+                })
+
+                img.src = path.replace(/url\(\"(.*?)\"\)/g, '$1')
+            })
+        }
+
+        const $preloader = document.querySelector('.js-swiper-preloader')
+        const promises = [...document.querySelectorAll('.js-swiper-slide-preload')]
+            .map(slide => loadImage(window.getComputedStyle(slide).backgroundImage))
+
+        Promise.all(promises)
+            .then(() => {
+                $preloader.remove()
+
+                var sliderThumbs = new Swiper('.js-swiper-blog-journal-hero-thumbs', {
+                    direction: 'vertical',
+                    watchSlidesVisibility: true,
+                    watchSlidesProgress: true,
+                    slidesPerView: 3,
+                    history: false,
+                    on: {
+                        'afterInit': function(swiper) {
+                            swiper.el.style.opacity = 1
+                            swiper.el.querySelectorAll('.js-swiper-pagination-progress-body-helper')
+                                .forEach($progress => $progress.style.transitionDuration = `${swiper.params.autoplay.delay}ms`)
+                        }
+                    }
+                });
+
+                var swiper = new Swiper('.js-swiper-blog-journal-hero', {
+                    effect: 'fade',
+                    autoplay: true,
+                    loop: true,
+                    pagination: {
+                        el: '.js-swiper-blog-journal-hero-pagination',
+                        clickable: true,
+                    },
+                    thumbs: {
+                        swiper: sliderThumbs
+                    }
+                });
+            })
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+    })()
+</script>
+{% endblock js %}

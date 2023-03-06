@@ -33,3 +33,17 @@
 .field-target_item_inline .readonly{
     margin-left: 0 !important;
 }
+
+.field-what_we_do_item_inline{
+    display:block;
+}
+
+.field-what_we_do_item_inline label{
+    display: none !important;
+}
+
+.field-what_we_do_item_inline .readonly{
+    margin-left: 0 !important;
+}
+
+

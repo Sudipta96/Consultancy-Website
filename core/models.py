@@ -17,6 +17,31 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
 
+class HeroSection(models.Model):
+    PAGE_CHOICES = (
+        ("PREAMBLE", "PREAMBLE"),
+        ("WHAT-WE-ARE", "WHAT-WE-ARE"),
+        ("WHAT-WE-DO", "WHAT-WE-DO"),
+        ("OUR-VISION", "OUR-VISION"),
+        ("OUR-MISSION", "OUR-MISSION"),
+        ("OUR-TARGET-AUDIENCE", "OUR-TARGET-AUDIENCE"),
+        ("OUR-AIM-OBJECTIVES", "OUR-AIM-OBJECTIVES"),
+        ("OUR-STRATEGY", "OUR-STRATEGY"),
+    )
+    # page = models.CharField(choices=PAGE_CHOICES, max_length=30, default="PREAMBLE")
+    page_name = models.CharField(max_length=50)
+    slug = models.SlugField()
+    image = models.ImageField()
+    heading = models.CharField(blank=True, max_length=35)
+    short_note = models.CharField(blank=True, max_length=150)
+    link = models.URLField(blank=True, max_length=200)
+    link_text = models.CharField(blank=True, max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.slug
+
 # Create your models here.
 class Contact_Us(models.Model):
     name = models.CharField(max_length=200, help_text="Your full name")
@@ -44,6 +69,7 @@ def validate_resource_person_avatar_file_size(value):
         return value
 
 
+
 class ResourcePerson(models.Model):
     def get_resource_person_avatar_file_path(self, filename):
         status = self.get_person_status_display()
@@ -51,7 +77,7 @@ class ResourcePerson(models.Model):
     
     RESOURCE_PERSON_STATUS_CHOICES = (
         ('M', "Managing Body"),
-        ("F", "Parmanent Speaker"),
+        ("P", "Parmanent Speaker"),
         ('G', "Guest Speaker"),
     )
     name = models.CharField(max_length=250, help_text="Full name")
@@ -94,40 +120,26 @@ class IndexSlider(models.Model):
 
 class Icon(models.Model):
     name = models.CharField(max_length=50)
-    file = models.FileField()
+    image = models.ImageField(blank=True)
+    file = models.FileField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
 
-class HeroSection(models.Model):
-    PAGE_CHOICES = (
-        ("PREAMBLE", "PREAMBLE"),
-        ("WHAT-WE-ARE", "WHAT-WE-ARE"),
-        ("WHAT-WE-DO", "WHAT-WE-DO"),
-        ("OUR-VISION", "OUR-VISION"),
-        ("OUR-MISSION", "OUR-MISSION"),
-        ("OUR-TARGET-AUDIENCE", "OUR-TARGET-AUDIENCE"),
-        ("OUR-AIM-OBJECTIVES", "OUR-AIM-OBJECTIVES"),
-        ("OUR-STRATEGY", "OUR-STRATEGY"),
-    )
-    page = models.CharField(choices=PAGE_CHOICES, max_length=30, default="PREAMBLE")
-    image = models.ImageField()
-    heading = models.CharField(blank=True, max_length=35)
-    short_note = models.CharField(blank=True, max_length=150)
-    link = models.URLField(blank=True, max_length=200)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
+class Page(models.Model):
+    name = models.CharField(max_length=50)
+
     def __str__(self):
-        return self.page   
+        return self.name
+
     
 class Preamble(models.Model):
     tagline = models.CharField(max_length=100)
     index_page_image = models.ImageField(upload_to="pages/preamble", default="default/default_avatar.jpg")
-    short_description = RichTextField(max_length=300, help_text="Preamble short description for index page")
-    long_description = RichTextField(max_length=1000, help_text="Preamble detail description for single page")
+    short_description = RichTextField(max_length=700, help_text="Preamble short description for index page")
+    long_description = RichTextField(blank=True, max_length=3000, help_text="Preamble detail description for single page")
     read_more = models.BooleanField(default=False, help_text="represents read more button")
     hero_section = models.ForeignKey(HeroSection, on_delete=models.PROTECT, related_name="preamble", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -138,8 +150,8 @@ class Preamble(models.Model):
 class WhatWeAre(models.Model):
     tagline = models.CharField(max_length=100)
     index_page_image = models.ImageField(upload_to="pages/what-we-are", default="default/default_avatar.jpg")
-    short_description = RichTextField(max_length=300, help_text="short description for index page")
-    long_description = RichTextField(max_length=1000, help_text="Detail description for single page")
+    short_description = RichTextField(max_length=700, help_text="short description for index page")
+    long_description = RichTextField(blank=True, max_length=3000, help_text="Detail description for single page")
     read_more = models.BooleanField(default=False, help_text="represents read more button")
     hero_section = models.ForeignKey(HeroSection, on_delete=models.PROTECT, related_name="what_we_are", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -150,7 +162,7 @@ class WhatWeAre(models.Model):
    
 class WhatWeDo(models.Model):
     read_more = models.BooleanField(default=False, help_text="represents read more button")
-    long_description = RichTextUploadingField(blank=True, max_length=1000, help_text="Detail description for single page")
+    long_description = RichTextUploadingField(blank=True, max_length=3000, help_text="Detail description for single page")
     hero_section = models.ForeignKey(HeroSection, on_delete=models.PROTECT, related_name="what_we_do", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
@@ -162,11 +174,11 @@ class WhatWeDoCardItem(models.Model):
     heading = models.CharField(max_length=50)
     short_note = models.TextField(max_length=255, help_text="Short Description")
     what_we_do = models.ForeignKey(WhatWeDo, on_delete=models.PROTECT, related_name="what_we_do_item")    
+    is_visible_in_index_page =  models.BooleanField(default=True, verbose_name="Index page visibility")
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.name 
-
+        return self.heading
 
 
 
@@ -175,8 +187,8 @@ class OurVision(models.Model):
     index_page_image1 = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
     index_page_image2 = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
     index_page_image3 = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
-    short_description = models.TextField(max_length=200, help_text="Short Description")
-    long_description = RichTextUploadingField(max_length=1000, help_text="Detail description for single page")
+    short_description = RichTextField(max_length=600, help_text="Short Description")
+    long_description = RichTextUploadingField(blank=True, max_length=3000, help_text="Detail description for single page")
     read_more = models.BooleanField(default=False, help_text="represents read more button")
     hero_section = models.ForeignKey(HeroSection, on_delete=models.PROTECT, related_name="our_vision", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -186,11 +198,12 @@ class OurVision(models.Model):
     
 class OurMission(models.Model):
     tagline = models.CharField(max_length=100)
-    index_page_image1 = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
-    index_page_image2 = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
-    index_page_image3 = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
-    short_description = models.TextField(max_length=200, help_text="Short Description")
-    long_description = RichTextUploadingField(max_length=1000, help_text="Detail description for single page")
+    index_page_image = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
+    # index_page_image1 = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
+    # index_page_image2 = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
+    # index_page_image3 = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
+    short_description = RichTextField(max_length=700, help_text="Short Description")
+    long_description = RichTextUploadingField(blank=True, max_length=3000, help_text="Detail description for single page")
     read_more = models.BooleanField(default=False, help_text="represents read more button")
     hero_section = models.ForeignKey(HeroSection, on_delete=models.PROTECT, related_name="our_mission", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -201,7 +214,7 @@ class OurMission(models.Model):
 
 class OurTargetAudience(models.Model):
     hero_section = models.ForeignKey(HeroSection, on_delete=models.PROTECT, related_name="target_audience", blank=True, null=True)
-    long_description = RichTextUploadingField(blank=True, max_length=1000, help_text="Detail description for single page")
+    long_description = RichTextUploadingField(blank=True, max_length=3000, help_text="Detail description for single page")
     read_more = models.BooleanField(default=False, help_text="represents read more button")
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -217,13 +230,13 @@ class TargetCardItem(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.name 
+        return self.heading
 
 
 class AimAndObjectives(models.Model):
     index_page_image = models.ImageField(upload_to="pages/what-we-do", default="default/default_avatar.jpg")
     short_listing = models.TextField(blank=True, max_length=200, help_text="Short Listing")
-    long_description = RichTextUploadingField(blank=True, max_length=1000, help_text="Detail description for single page")
+    long_description = RichTextUploadingField(blank=True, max_length=3000, help_text="Detail description for single page")
     hero_section = models.ForeignKey(HeroSection, on_delete=models.PROTECT, related_name="aim_objectives", blank=True, null=True)
     read_more = models.BooleanField(default=False, help_text="represents read more button")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -239,8 +252,8 @@ class AimItem(models.Model):
         return "Aim Items"
     
 class OurStrategy(models.Model):
-    hero_section = models.ForeignKey(HeroSection, on_delete=models.PROTECT, related_name="our_strategy", blank=True, null=True)
-    long_description = RichTextUploadingField(blank=True, max_length=1000, help_text="Detail description for single page")
+    hero_section = models.OneToOneField(HeroSection, on_delete=models.PROTECT, related_name="our_strategy", blank=True, null=True)
+    long_description = RichTextUploadingField(blank=True, max_length=3000, help_text="Detail description for single page")
     read_more = models.BooleanField(default=False, help_text="represents read more button")
     
     def __str__(self):
@@ -253,7 +266,7 @@ class StrategyCardItem(models.Model):
     short_note = models.TextField(max_length=255, help_text="Short Description")
     display_in_index = models.BooleanField(default=True, help_text="Format:True: Will display in index page or not")
     created_at = models.DateTimeField(auto_now_add=True)
-    strategy = models.ForeignKey(OurStrategy, on_delete=models.PROTECT, related_name="strategy_item")    
+    strategy = models.ForeignKey(OurStrategy, on_delete=models.CASCADE, related_name="strategy_item")    
     
     def __str__(self):
         return self.heading

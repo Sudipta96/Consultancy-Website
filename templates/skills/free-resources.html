@@ -26,7 +26,21 @@
 <!-- ========== MAIN CONTENT ========== -->
     <main id="content" role="main">
         <!-- Hero -->
-     <div class="bg-img-start gradient-x-overlay-sm-dark hero" style="background-image: url(../../static/img/1920x1080/img6.jpg);">
+        <!-- Hero Section-->
+    <div class="bg-dark bg-img-center" style="background-image: url();">
+        <div class="container content-space-2 content-space-lg-3">
+        <div class="w-md-65 w-lg-35">
+            <div class="mb-4">
+            <h2 class="h1 text-white">Free Resources</h2>
+            <p class="text-white">Outdo the sun and refresh your workout with greys, whites and dark brights.</p>
+            </div>
+            <a class="btn btn-light btn-transition rounded-pill" href="#">Shop the collection</a>
+        </div>
+        </div>
+    </div>
+  <!-- End Hero Section -->
+
+     <!-- <div class="bg-img-start gradient-x-overlay-sm-dark hero" style="background-image: url(../../static/img/1920x1080/img6.jpg);">
         <div class="d-md-flex content-space-3 content-space-md-0 hero-context">
           <div class="container d-md-flex justify-content-md-center align-items-md-center flex-md-column min-vh-md-100 text-center">
             <div class="w-lg-50 mt-3">
@@ -36,59 +50,49 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Hero -->
 
     <!-- Card Grid -->
     <div class="position-relative container content-space-b-2 content-space-b-lg-3 content-space-t-2">
         <div class="row">
-            <div class="col-12 col-md-6 mb-5">
-                <h4 class="card-title py-2">Mental Health</h4>
+            {% for course in courses %}
+             {% if not foorloop.counter|divisibleby:2 %}
+            <div class="col-12 col-md-5 ms-auto mb-5">
+                <h4 class="card-title py-2">{{course.name}}</h4>
                 <ul class="list-unstyled list-py-1">
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-download text-success me-2"></i><span class="material-title">Lorem ipsum, dolor sit amet consectetur adipisicing.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur.</span></a></li>
+                    {% for resource in course.course_resource.all %}
+                    {% if resource.resource_url %}
+                     <li><a href="{{resource.resource_url}}"><i class="bi bi-link text-success me-2"></i><span class="material-title">{{resource.text}}</span></a></li>
+                     {% else %}
+                        {% if resource.resource_file %}
+                       <li><a href="{{resource.resource_file.url}}"><i class="bi bi-download text-success me-2"></i><span class="material-title">{{resource.text}}</span></a></li>
+                        {% endif %}
+                     {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
+            <div class="col-md-1"></div>
+            {% else %}
             <!-- End Column -->
-
-            <div class="col col-md-6 mb-5">
-                <h4 class="card-title py-2">Microsoft word</h4>
+            
+            <div class="col-12 col-md-5 me-auto mb-5">
+                <h4 class="card-title py-2">{{course.name}}</h4>
                 <ul class="list-unstyled list-py-1">
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-download text-success me-2"></i><span class="material-title">Lorem ipsum, dolor sit amet consectetur adipisicing.</span></a></li>
+                    {% for resource in course.course_resource.all %}
+                    {% if resource.resource_url %}
+                     <li><a href="{{resource.resource_url}}"><i class="bi bi-link text-success me-2"></i><span class="material-title">{{resource.text}}</span></a></li>
+                     {% else %}
+                        {% if resource.resource_file %}
+                       <li><a href="{{resource.resource_file.url}}"><i class="bi bi-download text-success me-2"></i><span class="material-title">{{resource.text}}</span></a></li>
+                        {% endif %}
+                     {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
+            {% endif %}
             <!-- End Column -->
-
-            <div class="col-12 col-md-6 mb-5">
-                <h4 class="card-title py-2">Soft Skill</h4>
-                <ul class="list-unstyled list-py-1">
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-download text-success me-2"></i><span class="material-title">Lorem ipsum, dolor sit amet consectetur adipisicing.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur.</span></a></li>
-                </ul>
-            </div>
-            <!-- End Column -->
-
-            <div class="col col-md-6 mb-5">
-                <h4 class="card-title py-2">Microsoft Powerpoint</h4>
-                <ul class="list-unstyled list-py-1">
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-link text-success me-2"></i><span class="material-title">Lorem ipsum dolor sit.</span></a></li>
-                    <li><a href="#"><i class="bi bi-download text-success me-2"></i><span class="material-title">Lorem ipsum, dolor sit amet consectetur adipisicing.</span></a></li>
-                </ul>
-            </div>
-            <!-- End Column -->
+            {% endfor %}
         </div>
     </div>
     </main>
@@ -96,4 +100,104 @@
 <!-- ========== END MAIN CONTENT ========== -->
 {% endblock content %}
 {% block js %}
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        HSBsValidation.init('.js-validate', {
+            onSubmit: data => {
+                data.event.preventDefault()
+                alert('Submited')
+            }
+        })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF SWIPER
+        // =======================================================
+        function loadImage(path) {
+            return new Promise(function(resolve) {
+                const img = new Image()
+
+                img.addEventListener('load', () => {
+                    resolve()
+                })
+
+                img.src = path.replace(/url\(\"(.*?)\"\)/g, '$1')
+            })
+        }
+
+        const $preloader = document.querySelector('.js-swiper-preloader')
+        const promises = [...document.querySelectorAll('.js-swiper-slide-preload')]
+            .map(slide => loadImage(window.getComputedStyle(slide).backgroundImage))
+
+        Promise.all(promises)
+            .then(() => {
+                $preloader.remove()
+
+                var sliderThumbs = new Swiper('.js-swiper-blog-journal-hero-thumbs', {
+                    direction: 'vertical',
+                    watchSlidesVisibility: true,
+                    watchSlidesProgress: true,
+                    slidesPerView: 3,
+                    history: false,
+                    on: {
+                        'afterInit': function(swiper) {
+                            swiper.el.style.opacity = 1
+                            swiper.el.querySelectorAll('.js-swiper-pagination-progress-body-helper')
+                                .forEach($progress => $progress.style.transitionDuration = `${swiper.params.autoplay.delay}ms`)
+                        }
+                    }
+                });
+
+                var swiper = new Swiper('.js-swiper-blog-journal-hero', {
+                    effect: 'fade',
+                    autoplay: true,
+                    loop: true,
+                    pagination: {
+                        el: '.js-swiper-blog-journal-hero-pagination',
+                        clickable: true,
+                    },
+                    thumbs: {
+                        swiper: sliderThumbs
+                    }
+                });
+            })
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+    })()
+</script>
 {% endblock %}

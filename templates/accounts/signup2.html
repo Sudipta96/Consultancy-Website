@@ -1,0 +1,397 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+
+<style>
+    .hero > .hero-context {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(
+          rgba(0,0,0,1),
+          rgba(0,0,0,.7),
+          rgba(0,0,0,.4),
+          rgba(0,0,0,0));
+        }
+    .signup-form{
+        background: rgba(255, 255,255, 0.25);
+        backdrop-filter: blur(15px);
+        border-color: #fff;
+        border-bottom: 1px solid rgba(255, 255,255, 0.5);
+        border-right: 1px solid rgba(255, 255,255, 0.5);
+    }
+    .tab{
+        display:none;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+         <!-- Hero -->
+         <div class="bg-img-start hero" style="background-image: url(../../static/img/1920x1080/img4.jpg); min-width: 100vh; min-height: 100vh;">
+            <div class="container content-space-2 content-space-t-lg-3 content-space-b-lg-3">
+                <div class="row">
+                    <div class="col-10 col-md-6 card mx-auto signup-form">
+                        <div class="mt-5 px-3">
+                            <!-- Heading -->
+                            <div class="text-center mb-5 mb-md-7">
+                                <h1 class="h2 text-white">Welcome to Dikkha</h1>
+                                <p class="text-white">Fill out the form to get started.</p>
+                            </div>
+                            <!-- End Heading -->
+                            <!-- Form -->
+                            <form class="js-validate needs-validation" id="signupForm" novalidate>
+                                {% csrf_token %}
+                                    <div class="row gx-3">
+                                    <div class="col-sm-6">
+                                        <!-- FullName -->
+                                        <div class="mb-3">
+                                            <label class="form-label text-white" for="fullname">Your full name</label>
+                                            <input type="text" class="form-control form-control-lg" name="fullname" id="fullname" placeholder="Your full name" aria-label="your full name" required>
+                                            <span class="invalid-feedback text-white">Please enter a valid email address.</span>
+                                        </div>
+                                       <!-- End FullName -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- FullName -->
+                                        <div class="mb-3">
+                                            <label class="form-label text-white" for="username">Your username</label>
+                                            <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="Your user name" aria-label="Your user name" required>
+                                            <span class="invalid-feedback text-white">Please enter a valid email address.</span>
+                                        </div>
+                                        <!-- End FullName -->
+                                    </div>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col-sm-6">
+                                            <!-- Email -->
+                                            <div class="mb-3">
+                                                <label class="form-label text-white" for="email">Your email</label>
+                                                <input type="email" class="form-control form-control-lg" name="email" id="email" placeholder="email@gmail.com" aria-label="email@gmail.com" required>
+                                                <span class="invalid-feedback text-white">Please enter a valid email address.</span>
+                                            </div>
+                                            <!-- End Email -->
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <!-- Contact Number -->
+                                            <div class="mb-3 form-field">
+                                                <label class="form-label text-white" for="contact_number">Your Contact NUmber</label>
+                                                <input type="text" class="form-control form-control-lg" name="contact_number" id="contact_number" placeholder="+(88)(0)xx-xxx-xxx-xx" aria-label="+(88)(0)xx-xxx-xxx-xx" required>
+                                                <span class="invalid-feedback text-white">Please enter a valid email address.</span>
+                                            </div>
+                                            <!-- End Contact Number -->
+                                        </div>
+                                    </div>  
+                                    <div class="row-gx-3">
+                                        <div class="col">
+                                            <!-- Form -->
+                                            <div class="mb-3 form-field">
+                                                <label class="form-label text-white" for="password">Password</label>
+                        
+                                                <div class="input-group input-group-merge" data-hs-validation-validate-class>
+                                                    <input type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="8+ characters required" aria-label="8+ characters required" required data-hs-toggle-password-options='{
+                                                    "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
+                                                    "defaultClass": "bi-eye-slash",
+                                                    "showClass": "bi-eye",
+                                                    "classChangeTarget": ".js-toggle-passowrd-show-icon-1"
+                                                }'>
+                                                    <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:;">
+                                                    <i class="js-toggle-passowrd-show-icon-1 bi-eye"></i>
+                                                    </a>
+                                                </div>
+                        
+                                                <span class="invalid-feedback">Your password is invalid. Please try again.</span>
+                                            </div>
+                                            <!-- End Form -->
+                                        </div>
+                                        <div class="col">
+                                            <!-- Form -->
+                                            <div class="mb-3">
+                                                <label class="form-label text-white" for="confirm_password">Confirm password</label>
+                                                    <div class="input-group input-group-merge" data-hs-validation-validate-class>
+                                                        <input type="password" class="js-toggle-password form-control form-control-lg" name="confirm_password" id="confirm_password" placeholder="8+ characters required" aria-label="8+ characters required" required data-hs-validation-equal-field="#password"
+                                                            data-hs-toggle-password-options='{
+                                                    "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
+                                                    "defaultClass": "bi-eye-slash",
+                                                    "showClass": "bi-eye",
+                                                    "classChangeTarget": ".js-toggle-passowrd-show-icon-2"
+                                                    }'>
+                                                        <a class="js-toggle-password-target-2 input-group-append input-group-text" href="javascript:;">
+                                                        <i class="js-toggle-passowrd-show-icon-2 bi-eye"></i>
+                                                        </a>
+                                                    </div>
+                                                <span class="invalid-feedback">Password does not match the confirm password.</span>
+                                            </div>
+                                            <!-- End Form -->
+                                        </div>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col mb-3">
+                                            <label class="form-label text-white me-3" for="gender">Gender</label>
+                                            <div class="form-check form-check-inline" id="gender-check-box">
+                                                <input class="form-check-input" type="radio" name="gender" id="male" value="MALE">
+                                                <label class="form-check-label text-white" for="male">Male</label>
+                                              </div>
+                                              <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="female" value="FEMALE">
+                                                <label class="form-check-label text-white" for="female">Female</label>
+                                              </div>
+                                              <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="others" value="OTHERS">
+                                                <label class="form-check-label text-white" for="others">Others</label>
+                                            </div>
+                                            <span class="invalid-feedback text-white" id="gender-error-text">Please choose your gender.</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row gx-3">
+                                        <div class="col" id="">
+                                            <div class="d-grid mb-3" id="nextBtnDiv">
+                                                <button type="submit" class="btn btn-primary btn-lg" id="signupSubmitBtn">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-white">Already have an account? <a class="link" href="./page-login-simple.html">Log in here</a></p>
+                                    </div>
+                            </form>
+                            <form class="needs-validation d-none" id="universityForm">
+                                   {% csrf_token %}
+                                    <div class="row gx-3">
+                                        <div class="col-sm-6">
+                                            <div class="mb-3">
+                                            <label class="form-label text-white" for="university_level">Choose University Level</label>
+                                            <select class="form-select" id="university_level" aria-label="Default select example" required>
+                                                <option value="" selected>-----Select-----</option>
+                                                <option value="graduation">Graduation</option>
+                                                <option value="post_graduation">Post Graduation</option>
+                                            </select>
+                                            <span class="invalid-feedback text-white">Please select university level.</span>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="mb-3">
+                                                <label class="form-label text-white" for="exam_name">Degree Name</label>
+                                                <select class="form-select" name="exam_name" id="exam_name" aria-label="Default select example" required disabled>
+                                                    <option value="" selected>-----Select-----</option>
+                                                </select>
+                                                <span class="invalid-feedback text-white">Please select your degree name.</span>
+                                              </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-gx-3">
+                                        <div class="col">
+                                                <div class="mb-3">
+                                                <label class="form-label text-white" for="university">University</label>
+                                                <select class="form-select" name="university" id="university" aria-label="Default select example" required>
+                                                    <option value="" selected>-----Select-----</option>
+                                                    {% for university in university_names %}
+                                                    <option value="{{university.pk}}">{{ university.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <span class="invalid-feedback text-white">Please select your university.</span>
+                                              </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row gx-3">
+                                        <div class="col-sm-6">
+                                            <div class="mb-3">
+                                                <label class="form-label text-white" for="subject">Subject</label>
+                                                <select class="form-select" name="subject" id="subject" aria-label="Default select example" required>
+                                                    <option value="" selected>-----Select-----</option>
+                                                    {% for subject in subject_names %}
+                                                    <option value="{{subject.pk}}">{{ subject.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <span class="invalid-feedback text-white">Please select your subject.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="mb-3">
+                                                <label class="form-label text-white" for="which_year_student">Year</label>
+                                                <select class="form-select" name="which_year_student" id="which_year_student" aria-label="Default select example" required disabled>
+                                                    <option value="" selected>-----Select-----</option>
+                                                </select>
+                                               <span class="invalid-feedback text-white">Please select in which year you are.</span>
+                                              </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row gx-3">
+                                        <div class="col">
+                                            <div class="d-grid mb-3">
+                                                <button type="submit" class="btn btn-primary btn-lg" id="universitySubmitBtn">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-white">Already have an account? <a class="link" href="./page-login-simple.html">Log in here</a></p>
+                                    </div>
+                            </form>
+                            <!-- End Form -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Hero -->
+    </main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+{% endblock content %}
+{% block js %}
+<script>
+    // INITIALIZATION OF TOGGLE PASSWORD
+    // =======================================================
+    new HSTogglePassword('.js-toggle-password');
+     
+
+
+    // contactNumber validation
+    function validateContact(contectNumber){
+        if(/^(?:\+?88)?01[3-9]\d{8}$/.test(contectNumber)){
+            return true;
+        }else return false
+    }
+
+    if (document.getElementById("university_level")){
+        document.getElementById("university_level").addEventListener("change", onChangeUniversityLevelHandler);
+    }
+
+    function onChangeUniversityLevelHandler(event){
+        console.log("onchange() called...");
+        let selected_university_level = event.target.options[event.target.selectedIndex].value;
+        console.log(selected_university_level);
+
+        let data = {
+            "selected_university_level": selected_university_level,
+        }
+        $.ajax({
+            type: "GET",
+            url: `{% url "accounts:load-university-contents" %}`,
+            data: data,
+            success: function(response){
+                console.log(response);
+                let exam_names_menu = document.getElementById("exam_name");
+                if(exam_names_menu){
+                    exam_names_menu.disabled = false;
+                    exam_names_menu.innerHTML = response.load_exam_names;
+                }
+                let which_year_student = document.getElementById("which_year_student");
+                if(which_year_student){
+                    which_year_student.disabled = false
+                    which_year_student.innerHTML = response.load_which_years;
+                }
+                console.log(exam_names_menu)
+
+            },
+            error: function(errorData){
+                console.log(errorData);
+            },
+        })
+    }
+    
+    let email_address;
+    // Form submit
+    document.getElementById("signupSubmitBtn").addEventListener("click", e=>{
+        e.preventDefault();
+        
+        let signupForm = document.getElementById("signupForm"); 
+        // console.log(signupForm.elements["gender"].value);
+        let csrf = document.getElementsByName("csrfmiddlewaretoken");
+        console.log(csrf[0]);
+
+        // document.getElementById("universityForm").classList.toggle("d-none");
+        // document.getElementById("signupForm").classList.toggle("d-none");
+        
+        const fd = new FormData();
+        fd.append("csrfmiddlewaretoken", csrf[0].value);
+        fd.append("fullname", signupForm.elements["fullname"].value)
+        fd.append("username", signupForm.elements["fullname"].value)
+        fd.append("email", signupForm.elements["email"].value)
+        fd.append("password1", signupForm.elements["password"].value)
+        fd.append("password2", signupForm.elements["confirm_password"].value)
+        fd.append("gender", signupForm.elements["gender"].value)
+        fd.append("contact_number", signupForm.elements["contact_number"].value)
+        
+        $.ajax({
+            type: "POST",
+            url: `{% url "accounts:signup" %}`,
+            data: fd,
+            success: function(response){
+                console.log(response.status);
+                email_address = response.email;
+                document.getElementById("universityForm").classList.toggle("d-none");
+                document.getElementById("signupForm").classList.toggle("d-none");
+            },
+            error: function(errorData){
+                console.log(errorData);
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+        })
+    }
+    )
+    
+    let universityForm = document.getElementById("universityForm"); 
+
+    universityForm.addEventListener("submit", e=>{
+        e.preventDefault();
+        
+        // console.log(signupForm.elements["gender"].value);
+        let csrf = document.getElementsByName("csrfmiddlewaretoken");
+        console.log(csrf[1]);
+        // console.log(universityForm.elements["university_level"].value);
+        console.log(email_address);
+        const fd = new FormData();
+        fd.append("csrfmiddlewaretoken", csrf[0].value);
+        fd.append("email", email_address);
+        fd.append("university_level", universityForm.elements["university_level"].value)
+        fd.append("exam", universityForm.elements["exam_name"].value)
+        fd.append("university", universityForm.elements["university"].value)
+        fd.append("subject", universityForm.elements["subject"].value)
+        fd.append("which_year_student", universityForm.elements["which_year_student"].value)
+        
+        
+        // fd.append()
+        // fd.append()
+
+        $.ajax({
+            type: "POST",
+            url: `{% url "accounts:signup" %}`,
+            data: fd,
+            success: function(response){
+                console.log(response.status);
+                // document.getElementById("universityForm").classList.toggle("d-none");
+                // document.getElementById("signupForm").classList.toggle("d-none");
+            },
+            error: function(errorData){
+                console.log(errorData);
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+        })
+    }
+    )
+
+
+     
+        
+        // HSBsValidation.init('.js-validate', {
+        //     onSubmit: data => {
+        //         data.event.preventDefault()
+        //         alert('Submited')
+        //     }
+        // })
+    
+
+</script>
+{% endblock js %}

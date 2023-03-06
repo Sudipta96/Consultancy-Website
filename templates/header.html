@@ -39,14 +39,14 @@
 
                 <!-- Mega Menu -->
                 <div class="hs-sub-menu dropdown-menu about-mega-menu" aria-labelledby="aboutMegaMenu" style="min-width: 14rem;">
-                    <a class="dropdown-item " href="./preamble.html">Preamble</a>
-                    <a class="dropdown-item " href="./what-we-are.html">What We Are</a>
-                    <a class="dropdown-item " href="./what-we-do.html">What We Do</a>
-                    <a class="dropdown-item " href="./our-vision.html">Our Vision</a>
-                    <a class="dropdown-item " href="./our-mission.html">Our Mission</a>
-                    <a class="dropdown-item " href="./our-target-audience.html">Our Target Audience</a>
-                    <a class="dropdown-item " href="./our-aim-objectives.html">Our Aim & Objectives</a>
-                    <a class="dropdown-item " href="./our-strategies.html">Our Strategies</a>
+                    <a class="dropdown-item " href="{% url 'core:preamble' %}">Preamble</a>
+                    <a class="dropdown-item " href="{% url 'core:what_we_are' %}">What We Are</a>
+                    <a class="dropdown-item " href="{% url 'core:what_we_do' %}">What We Do</a>
+                    <a class="dropdown-item " href="{% url 'core:our_vision' %}">Our Vision</a>
+                    <a class="dropdown-item " href="{% url 'core:our_mission' %}">Our Mission</a>
+                    <a class="dropdown-item " href="{% url 'core:our_target_audience' %}">Our Target Audience</a>
+                    <a class="dropdown-item " href="{% url 'core:our_aim_objectives' %}">Our Aim & Objectives</a>
+                    <a class="dropdown-item " href="{% url 'core:our_strategy' %}">Our Strategies</a>
                 </div>
                 <!-- End Mega Menu -->
             </li>
@@ -140,9 +140,12 @@
                 <div class="login d-flex text-light">
                     <!-- <i class="bi bi-person mx-1"></i> -->
                     <span>
-                        <a href="" class="text-light">Login</a> <span> | </span>
-                        <a href="./page-signup-simple.html" 
-                        class="text-light">Register</a>
+                        {% if request.user.is_authenticated %}
+                        <a href="{% url 'accounts:signout' %}" class="text-light">Sign Out</a>
+                        {% else %}
+                        <a href="{% url 'accounts:signin' %}" class="text-light">SignIn</a> <span> | </span>
+                        <a href="{% url 'accounts:signup' %}" class="text-light">SignUp</a>
+                        {% endif %}
                     </span>
                 </div>
               <!-- <a class="" href="https://themes.getbootstrap.com/product/front-multipurpose-responsive-template/" target="_blank">Login</a>
