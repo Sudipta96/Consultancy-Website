@@ -38,7 +38,8 @@ def is_ajax(request):
 def signup_view(request):
     universities = University.objects.all()
     subjects = Subject.objects.all()
-   
+    context = {}
+    
     if request.user.is_authenticated:
         print(f"You are already authenticated as {request.user.username}")
     
@@ -67,7 +68,6 @@ def signup_view(request):
             print(uni_form.errors)
             print("form is not valid")
     else:
-        context = {}
         context['university_names'] = universities
         context['subject_names'] = subjects
     return render(request, "accounts/signup.html", context=context)

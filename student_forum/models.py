@@ -16,7 +16,7 @@ from imagekit.processors import ResizeToFill
 
 # django-ckeditor
 from ckeditor_uploader.fields import RichTextUploadingField
-
+from account_profile.models import StudentCurrentEducationInfo
 
     
 # Create your models here.
@@ -28,20 +28,32 @@ class StudentFeedback(models.Model):
         ('4', "FOUR STAR"),
         ("5", "FIVE STAR")
     )
-    name = models.CharField(max_length=200, help_text="Your Full Name")
+    # name = models.CharField(max_length=200, help_text="Your Full Name")
     # email = models.EmailField(verbose_name="email", max_length=60, help_text="Your Email Address")
     # university = models.ForeignKey(University, on_delete=models.PROTECT, related_name="feedbacker_university", help_text="University Name")
     review = models.TextField(max_length=400, help_text="Write your review")
     rating = models.CharField(choices=RATING_CHOICES,max_length=10,default="3")
-    feedback_given_by = models.ForeignKey(Account, null=True, blank=True, on_delete=models.CASCADE, related_name="feedback_given_by")
-    is_verified = models.BooleanField(default=False, help_text="Review is verified or not")
-    is_checked = models.BooleanField(default=False, help_text="Review is checked by signals")
+    feedback_given_by = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="feedback_given_by")
+    # verified_by = models.ForeignKey(Account, null=True, blank=True, on_delete=models.SET_NULL, related_name="feedback_verified_by")
+    # is_verified = models.BooleanField(default=False, help_text="Review is verified or not")
+    # is_checked = models.BooleanField(default=False, help_text="Review is checked by signals")
     will_be_displayed = models.BooleanField(default=False, help_text="If this field is checked, Review will be displayed in website.")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return self.name
+        return self.feedback_given_by.username
+    
+    @property
+    def get_feedback_giver_university_name(self):
+        try:
+            edu_obj = StudentCurrentEducationInfo.objects.get(account=self.feedback_given_by)
+            print(edu_obj.university.name)
+            return edu_obj.university.name
+        except StudentCurrentEducationInfo.DoesNotExist:
+            print("No unviversity is associated with this account")
+            pass
+
     
     class Meta:
         verbose_name = "Student Feedback"

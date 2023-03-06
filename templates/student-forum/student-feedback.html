@@ -1,0 +1,275 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+<style>
+    .hero{
+          position: relative;
+          min-width: 100vh;
+          min-height: 100vh;
+          /* max-width: 100vh; */
+          /* max-height: 100vh; */
+        }
+        .hero > .hero-context {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(
+          rgba(0,0,0,1),
+          rgba(0,0,0,.7),
+          rgba(0,0,0,.4),
+          rgba(0,0,0,0));
+        }
+</style>
+{% endblock %}
+{% block content %}
+<!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+           <!-- Hero Section-->
+    <div class="bg-img-center bg-dark" style="background-image: url({{hero_section.image.url}});">
+        <div class="container content-space-2 content-space-lg-3">
+        <div class="w-md-65 w-lg-35">
+            <div class="mb-4">
+            <h2 class="h1 text-white">{{hero_section.heading}}</h2>
+            <p class="text-white">{{hero_section.short_note}}</p>
+            </div>
+            {% if hero_section.link and hero_section.link_text %}
+            <a class="btn btn-light btn-transition rounded-pill" href="{{hero_section.link}}">{{hero_section.link_text}}</a>
+            {% endif %}
+            <!-- <a class="btn btn-light btn-transition rounded-pill" href="#">Shop the collection</a> -->
+        </div>
+        </div>
+    </div>
+
+    <div class="container-fluid px-0 position-absolute" style="z-index: 999; top:0;">
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} text-center alert-dismissible fade show" style="border-radius: 0;" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+    </div>
+
+  <!-- End Hero Section -->
+         <!-- Testimonials -->
+        <div class="border-top position-relative overflow-hidden">
+            <div class="container content-space-2 content-space-lg-3">
+                <!-- Heading -->
+                <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+                    <span class="text-cap">Students FeedBack</span>
+                    <h2 class="">We like to here from our students</h2>
+                    </div>
+                <!-- End Heading -->
+        
+                <div class="row">
+                    {% for feedback in student_feedbacks %}
+                    <div class="col-sm-6 col-lg-4 mb-5">
+                    <!-- Card -->
+                    <div class="card shadow-xl student-feedback">
+                        <div class="card-body">
+                        <!-- Rating -->
+                        <div class="d-flex gap-1 mb-2">
+                            <!-- <img src="{% static 'svg/illustrations/star.svg' %}" alt="Review rating" width="16"> -->
+                            <!-- {{feedback.rating.choice_list}} -->
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi {% if feedback.rating|add:'0' >= 2 %}bi-star-fill text-warning {% else %}bi-star{% endif %}"></i>
+                            <i class="bi {% if feedback.rating|add:'0' >= 3 %}bi-star-fill text-warning {% else %}bi-star{% endif %}"></i>
+                            <i class="bi {% if feedback.rating|add:'0' >= 4 %}bi-star-fill text-warning {% else %}bi-star{% endif %}"></i>
+                            <i class="bi {% if feedback.rating|add:'0' == 5 %}bi-star-fill text-warning {% else %}bi-star{% endif %}"></i>
+                        </div>
+                        <!-- End Rating -->
+            
+                        <div class="mb-auto">
+                            <p class="card-text">{{ feedback.review}}</p>
+                        </div>
+                        </div>
+            
+                        <div class="card-footer pt-0">
+                        <!-- Media -->
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                            <img class="avatar avatar-circle" src="{{feedback.feedback_given_by.avatar.url}}" alt="Image Description">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                            <h5 class="card-title mb-0">{{feedback.feedback_given_by.username}}</h5>
+                            <p class="card-text small status">{{feedback.get_feedback_giver_university_name}}</p>
+                            </div>
+                        </div>
+                        <!-- End Media -->
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                    </div>
+                    <!-- End Col -->
+                    {% endfor %}
+                </div>
+                <!-- End Row -->
+            </div>
+
+            <!-- SVG Shape -->
+            <figure class="position-absolute zi-n1" style="top: -35rem; left: 50rem; width: 62rem; height: 62rem;">
+                <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 260 260">
+                <circle fill="#e7eaf3" opacity=".7" cx="130" cy="130" r="130" />
+                </svg>
+            </figure>
+            <!-- End SVG Shape -->
+             
+        </div>
+        <!-- End Testimonials -->
+
+        <!-- Contacts -->
+    <div class="position-relative">
+        <div class="bg-secondary bg-img-start" style="background-image: url(./assets/svg/components/wave-pattern-light.svg);">
+          <div class="container content-space-t-2 content-space-t-lg-3 content-space-b-1">
+            <!-- Heading -->
+            <div class="w-lg-50 text-center mx-lg-auto mb-7">
+              <span class="text-cap text-white">FeedBack Us</span>
+              <h2 class="text-white lh-base">Let's give your feedback.<span class="text-warning">Let's know your thought.</span></h2>
+            </div>
+            <!-- End Heading -->
+  
+            <div class="mx-auto" style="max-width: 35rem;">
+              <!-- Card -->
+              <div class="card zi-2 mb-5">
+                <div class="card-body">
+                  <!-- Form -->
+                  <form class="js-validate needs-validation" id="feedbackForm" method="POST" action="{% url 'student_forum:student_feedback' %}" novalidate>
+                    <div class="row">
+                        {% csrf_token %}   
+                    <!-- Select -->
+                    <div class="mb-4">
+                        <label class="form-label" for="rating">Rating</label>
+                        <select id="id_rating" class="form-select form-select-lg" name="rating" aria-label="User rating" required>
+                            <option value="1">1 star</option>
+                            <option value="2">2 star</option>
+                            <option value="3" selected>3 star</option>
+                            <option value="4">4 star</option>
+                            <option value="5">5 star</option>
+                        </select>
+                        {% for error in feedback_form.rating.errors %}
+                          <span class="fs-sm text-danger">{{ error }}</span>
+                        {% endfor %}
+                        <div class="invalid-feedback">Please choose your rating</div>
+                    </div>
+                    <!-- End Select -->
+  
+                    <!-- Form -->
+                    <div class="mb-4">
+                      <label class="form-label" for="review">Review</label>
+                      <textarea class="form-control form-control-lg" name="review" id="id_review" placeholder="Tell us something about Dikkha" aria-label="Tell us something about Dikkha" rows="4" required></textarea>
+                      <div class="invalid-feedback">Please fill up review box</div>
+                      {% for error in feedback_form.review.errors %}
+                      <span class="fs-sm text-danger">{{ error }}</span>
+                      {% endfor %}
+
+                      {% for error in feedback_form.non_field_errors %}
+                      <span class="fs-sm text-danger">{{ error }}</span>
+                      {% endfor %}
+
+                    </div>
+                    <!-- End Form -->
+  
+                    <div class="d-grid mb-2">
+                      <button type="submit" class="btn btn-primary btn-lg">Send FeedBack</button>
+                    </div>
+
+                  </form>
+                  <!-- End Form -->
+                </div>
+              </div>
+              <!-- End Card -->
+            </div>
+          </div>
+        </div>
+  
+        <!-- Shape -->
+        <!-- <div class="shape shape-bottom zi-1">
+          <svg width="3000" height="500" viewBox="0 0 3000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 500H3000V0L0 500Z" fill="rgb(33, 50, 91)" />
+          </svg>
+        </div> -->
+
+         <!-- Background Shape -->
+        <!-- <figure class="position-absolute top-0 start-0 w-65">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1246 1078">
+            <g opacity=".4">
+                <linearGradient id="doubleEllipseTopLeftID1" gradientUnits="userSpaceOnUse" x1="2073.5078" y1="1.7251" x2="2273.4375" y2="1135.5818" gradientTransform="matrix(-1 0 0 1 2600 0)">
+                <stop offset="0.4976" style="stop-color:#559bff"/>
+                <stop offset="1" style="stop-color:#377dff"/>
+                </linearGradient>
+                <polygon fill="url(#doubleEllipseTopLeftID1)" points="519.8,0.6 0,0.6 0,1078 863.4,1078   "/>
+                <linearGradient id="doubleEllipseTopLeftID2" gradientUnits="userSpaceOnUse" x1="1717.1648" y1="3.779560e-05" x2="1717.1648" y2="644.0417" gradientTransform="matrix(-1 0 0 1 2600 0)">
+                <stop offset="1.577052e-06" style="stop-color:#559bff"/>
+                <stop offset="1" style="stop-color:#377dff"/>
+                </linearGradient>
+                <polygon fill="url(#doubleEllipseTopLeftID2)" points="519.7,0 1039.4,0.6 1246,639.1 725.2,644   "/>
+            </g>
+            </svg>
+        </figure> -->
+        <!-- End Background Shape -->
+
+        <!-- Shape -->
+        <div class="shape shape-bottom zi-1" style="margin-bottom: -.125rem">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1920 100.1">
+            <path fill="rgb(33, 50, 91)" d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"></path>
+            </svg>
+        </div>
+        <!-- End Shape -->
+        <!-- End Shape -->
+      </div>
+      <!-- End Contacts -->
+
+    </main>
+     
+<!-- ========== END MAIN CONTENT ========== -->
+{% endblock content %}
+{% block js %}
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        HSBsValidation.init('.js-validate', {
+            onSubmit: data => {
+                data.event.preventDefault();
+                document.getElementById("feedbackForm").submit();
+            }
+        })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+    })()
+</script>
+{% endblock %}
