@@ -8,7 +8,7 @@ import string
 import random
 
 import os
-import cv2
+# import cv2
 from PIL import Image
 import numpy as np
 from io import BytesIO
@@ -37,56 +37,56 @@ def today_date():
         print("d2 =", d2)
         return d2
 
-def generate_certificate(file_path, name, certificate_id, batch_id, date):
-    # Reading an image in default mode
-        image = cv2.imread(file_path)
-        if image is None:
-              print("Image is empty!!")
-        else:
-            print("Image is not empty!!")
+# def generate_certificate(file_path, name, certificate_id, batch_id, date):
+#     # Reading an image in default mode
+#         image = cv2.imread(file_path)
+#         if image is None:
+#               print("Image is empty!!")
+#         else:
+#             print("Image is not empty!!")
 
-        # text
-        # text = 'Sudipta Sarker'
+#         # text
+#         # text = 'Sudipta Sarker'
 
-        # font
-        font = cv2.FONT_HERSHEY_SIMPLEX
+#         # font
+#         font = cv2.FONT_HERSHEY_SIMPLEX
 
-        # org
-        org = (276,396)
+#         # org
+#         org = (276,396)
 
-        # fontScale
-        fontScale = 2
+#         # fontScale
+#         fontScale = 2
 
-        # Red color in BGR
-        color = (0, 0, 255)
+#         # Red color in BGR
+#         color = (0, 0, 255)
 
-        # Line thickness of 2 px
-        thickness = 2
+#         # Line thickness of 2 px
+#         thickness = 2
 
-        # Using cv2.putText() method
-        image = cv2.putText(image, name, org, font, fontScale,
-                        color, thickness, cv2.LINE_AA)
+#         # Using cv2.putText() method
+#         image = cv2.putText(image, name, org, font, fontScale,
+#                         color, thickness, cv2.LINE_AA)
 
-        # date = "08-Mar-2023"
+#         # date = "08-Mar-2023"
 
-        # # Using cv2.putText() method
-        image = cv2.putText(image, date, (144,572), font, 0.5,
-                        color, 1, cv2.LINE_AA)
+#         # # Using cv2.putText() method
+#         image = cv2.putText(image, date, (144,572), font, 0.5,
+#                         color, 1, cv2.LINE_AA)
 
-        certificate_id_position = (834, 192)
-        # car_id = "893KJDE93NK8"
-        # batch = "1st"
-        batch_position = (805, 218)
+#         certificate_id_position = (834, 192)
+#         # car_id = "893KJDE93NK8"
+#         # batch = "1st"
+#         batch_position = (805, 218)
 
-        image = cv2.putText(image, certificate_id, certificate_id_position, font, 0.5,
-                        color, 1, cv2.LINE_AA)
+#         image = cv2.putText(image, certificate_id, certificate_id_position, font, 0.5,
+#                         color, 1, cv2.LINE_AA)
 
-        image = cv2.putText(image, batch_id, batch_position, font, 0.5,
-                        color, 1, cv2.LINE_AA)
+#         image = cv2.putText(image, batch_id, batch_position, font, 0.5,
+#                         color, 1, cv2.LINE_AA)
 
 
-        # write the file
-        cv2.imwrite(file_path, image)
+#         # write the file
+#         cv2.imwrite(file_path, image)
 
         # return file
 
@@ -107,7 +107,7 @@ def create_certificate(sender,instance,created,**kwargs):
 
         file_path = instance.certificate.path
         print(file_path)
-        generate_certificate(file_path, name, certificate_id, batch_id, date)
+        # generate_certificate(file_path, name, certificate_id, batch_id, date)
         instance.save()
         # self.certificate = file        
 
