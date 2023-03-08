@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     "student_forum",
     "newsletter",
     "dashboard",
-    "resume",
     # 3rd Party Apps
     "ckeditor",
     'ckeditor_uploader',
