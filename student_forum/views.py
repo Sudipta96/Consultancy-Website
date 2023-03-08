@@ -3,7 +3,7 @@ from .forms import StudentFeedbackForm
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from .forms import AdmissionForm
 
 # Create your views here.
 # @login_required
@@ -52,3 +52,30 @@ def student_success_story_detail_view(request, story_slug):
         "story": story,
     }
     return render(request, "student-forum/student-success-story.html", context=context)
+
+def student_admission_view(request):
+    print("Called...")
+    context = {}
+    if request.method == "POST":
+        print(request.POST)
+        admission_form = AdmissionForm(request.POST, request.FILES)
+        if admission_form.is_valid():
+            print("valid")
+            transaction_id = admission_form.cleaned_data["transaction_id"]
+            admission = admission_form.save(commit=False)
+            admission.student = request.user
+            tranc_obj = StudentAdmissionTransactionInfo.objects.get(transaction_id=transaction_id)
+            if tranc_obj:
+                admission.is_verified = True
+                admission.save()
+                messages.success(request, "Your feedback has been received successfully")
+                return redirect("student_forum:student_admission")
+            else:
+                messages.warning(request, "Form is not valid. Please fill it up again.")
+                print("Admission not successfull")
+        else:
+            print("invalid")
+            print(admission_form.errors)
+            messages.warning(request, "Form is not valid. Please fill it up again.")
+
+    return render(request, "student-forum/student-admission.html", context=context)

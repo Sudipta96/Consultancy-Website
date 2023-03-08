@@ -109,12 +109,19 @@ class Subject(models.Model):
         return self.name
 
 class StudentCurrentEducationInfo(models.Model):
+    STUDENT_STATUS_CHOICES = (
+        ("first_year", "1st Year"),
+        ("second_year", "2nd Year"),
+        ("third_year", "3rd Year"),
+        ("fourth_year", "4th Year"),
+        ("just_passed", "Just Passed"),
+    ) 
     account = models.ForeignKey(Account, on_delete=models.CASCADE,related_name="account_current_edu_info")
     university_level = models.CharField(max_length=20)
     exam_name = models.CharField(max_length=30, help_text="examination type")
     university = models.ForeignKey(University, on_delete=models.PROTECT, related_name="student_current_university", help_text="university_name")
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT, help_text="subject name")
-    which_year_student = models.CharField(blank=True, max_length=20)
+    which_year_student = models.CharField(choices=STUDENT_STATUS_CHOICES, blank=True, max_length=20)
 
     def __str__(self):
         return self.account.username
@@ -179,9 +186,12 @@ class PostGraduationInfo(models.Model):
     def __str__(self):
         return f"{self.account.username}" 
 
+    
+
 class Certificate(models.Model):
     student = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="student_certificate")
-    certificate_id = models.CharField(max_length=10,unique=True)
+    batch_id = models.CharField(blank = True, max_length=10)
+    certificate_id = models.CharField(max_length=10,blank=True, unique=True)
     certificate = models.FileField(blank=True, help_text="certificate file")
     description = models.TextField(blank=True, max_length=300)
     created_by = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, help_text="The person who create the certificate")
@@ -190,5 +200,10 @@ class Certificate(models.Model):
     def __str__(self):
         return self.student.username
     
-    def generate_certificate_id(size=10, chars=string.ascii_uppercase + string.digits):
-        return ''.join(random.choice(chars) for _ in range(size))
+    
+
+    
+
+
+
+

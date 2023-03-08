@@ -1,0 +1,184 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block content %}  
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main">
+    
+    <!-- Hero Section-->
+    <div class="bg-img-center bg-dark" style="background-image: url({{our_aim_obj.index_page_image.url}});">
+        <div class="container content-space-2 content-space-lg-3">
+        <div class="w-md-65 w-lg-35 text-center mx-md-auto">
+            <div class="mb-4">
+            <h2 class="h1 text-white">Wear your pride</h2>
+            <p class="text-white">Outdo the sun and refresh your workout with greys, whites and dark brights.</p>
+            </div>
+            <a class="btn btn-light btn-transition rounded-pill" href="#">Shop the collection</a>
+        </div>
+        </div>
+    </div>
+  <!-- End Hero Section -->
+    
+
+    <!-- Card Grid -->
+    <div class="container content-space-b-2 content-space-b-lg-3 content-space-t-2">
+        <!-- Title -->
+        <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9 content-space-b-1">
+            <!-- <span class="text-cap">Our Vision</span> -->
+            <h2>PAST EVENTS</h2>
+        </div>
+        <!-- End Title -->
+
+        <div class="row mb-7">
+            {% for event in past_events %}
+            <div class="col-sm-6 col-lg-4 mb-4">
+                <!-- Card -->
+                <div class="card h-100">
+                    <div class="shape-container">
+                        <img class="card-img-top" src="{{event.image_thumbnail.url}}" alt="Image Description">
+
+                        <!-- Shape -->
+                        <div class="shape shape-bottom zi-1" style="margin-bottom: -.25rem">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1920 100.1">
+                <path fill="#fff" d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"></path>
+            </svg>
+                        </div>
+                        <!-- End Shape -->
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <a class="text-dark" href="#">{{event.title}}</a>
+                        </h3>
+
+                        <p class="card-text">{{event.title_intro}}</p>
+
+                        <div class="card-text">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="flex-shrink-0 avatar-group avatar-group-xs">
+                                    <!-- <a class="btn btn-sm btn-primary" href="#">Event Date</a> -->
+                                    <p class="card-text text-dark fw-bolder">Venue</p>
+                                </div>
+    
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-end">
+                                        <p class="card-text text-dark fw-bolder">{{event.venue}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mt-2">
+                                <div class="flex-shrink-0 avatar-group avatar-group-xs">
+                                    <!-- <a class="btn btn-sm btn-primary" href="#">Event Date</a> -->
+                                    <p class="card-text text-dark fw-bolder">Date</p>
+                                </div>
+    
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-end">
+                                        <p class="card-text text-dark fw-bolder">{{event.event_date}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Card Body -->
+                    <!-- <div class="card-footer">
+                        <p class="card-text">Venue: {{event.venue}}</p>
+                        <p class="card-text">Date: {{event.event_date}}</p>
+                    </div> -->
+
+                
+                    <!-- Card Footer -->
+                      <div class="card-footer pt-2">
+                        <a href="{% url 'newsletter:past_event_detail' event_slug=event.slug %}" class="btn btn-primary">Read More</a>
+                      </div>
+                    <!-- End Card Footer -->
+
+                </div>
+                <!-- End Card -->
+            </div>
+            <!-- End Col -->
+            {% endfor %}
+
+        </div>
+        <!-- End Row -->
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-end">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">
+            <i class="bi-chevron-double-left small"></i>
+            </span>
+        </a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">
+            <i class="bi-chevron-double-right small"></i>
+            </span>
+        </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- End Pagination -->
+    </div>
+    <!-- End Card Grid -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+    <!-- JS Plugins Init. -->
+{% endblock %}
+{% block js %}
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        HSBsValidation.init('.js-validate', {
+            onSubmit: data => {
+                data.event.preventDefault()
+                alert('Submited')
+            }
+        })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+    })()
+</script>
+
+{% endblock %}

@@ -17,7 +17,8 @@ def course_overview(request, cat_slug, course_slug):
     context = {}
     if category_qs:
        category = category_qs[0]
-       course = Course.objects.filter(slug=course_slug, category=category)[0]
+       course = Course.objects.get(slug=course_slug, category=category)
+    #    course = course_qs[0]
        context["category"] = category
        context["course"] = course
     return render(request, "skills/course-overview.html", context=context)

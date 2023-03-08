@@ -81,11 +81,11 @@
     <nav class="js-mega-menu navbar-nav-wrap">
         <!-- Default Logo -->
          <div class="d-flex mx-sm-auto">
-            <a href="./index.html" class="logo me-auto">
+            <a href="{% url 'core:home' %}" class="logo me-auto">
                 <img class="img-fluid" src="../static/img/logo/32.45-size.png" alt="" width="28">
             </a>
 
-            <h2 class="logo me-auto ms-2"><a href="./index.html">Dikkha
+            <h2 class="logo me-auto ms-2"><a href="{% url 'core:home' %}">Dikkha
                 <span><p style="font-size:12px; letter-spacing: 5px">Career Path</p></span>
             </a>
             </h2>
@@ -133,12 +133,10 @@
 
                         <!-- Mega Menu -->
                         <div class="hs-sub-menu dropdown-menu" aria-labelledby="companyMegaMenu" style="min-width: 14rem;">
-                            <a class="dropdown-item " href="./soft-skills.html">Soft Skill</a>
-                            <a class="dropdown-item " href="./computer-skills.html">Computer Skill</a>
-                            <a class="dropdown-item " href="./communication-skill.html">Communication Skill</a>
-                            <a class="dropdown-item " href="./mental-health.html">Mental Health</a>
-                            <a class="dropdown-item " href="./free-courses.html">Free Courses</a>
-                            <a class="dropdown-item " href="./free-resources.html">Free Resources</a>
+                            {% for category in categories %}
+                            <a class="dropdown-item " href="{% url 'skills:course_list' cat_slug=category.slug %}">{{category.name}}</a>
+                            {% endfor %}
+                            <a class="dropdown-item " href="{% url 'skills:free_resources' %}">Free Resources</a>
                         </div>
                         <!-- End Mega Menu -->
                     </li>
@@ -150,9 +148,9 @@
 
                         <!-- Mega Menu -->
                         <div class="hs-sub-menu dropdown-menu" aria-labelledby="accountMegaMenu" style="min-width: 14rem;">
-                            <a class="dropdown-item " href="./managing-body.html">Managing Body</a>
-                            <a class="dropdown-item " href="./full-time-instructors.html">Full Time Instructor</a>
-                            <a class="dropdown-item " href="./guest-lecturer.html">Guest Teacher</a>
+                            <a class="dropdown-item " href="{% url 'core:managing_body' %}">Managing Body</a>
+                            <a class="dropdown-item " href="{% url 'core:parmanent_speakers' %}">Full Time Instructor</a>
+                            <a class="dropdown-item " href="{% url 'core:guest_speakers' %}">Guest Teacher</a>
                         </div>
                         <!-- End Mega Menu -->
                     </li>
@@ -164,8 +162,9 @@
 
                         <!-- Mega Menu -->
                         <div class="hs-sub-menu dropdown-menu" aria-labelledby="studentForumMegaMenu" style="min-width: 14rem;">
-                            <a class="dropdown-item " href="./student-feedback.html">Student FeedBack</a>
-                            <a class="dropdown-item " href="./page-success-stories.html">Student Success Stories</a>
+                            <a class="dropdown-item " href="{% url 'student_forum:student_admission' %}">Student Admission</a>
+                            <a class="dropdown-item " href="{% url 'student_forum:student_feedback' %}">Student FeedBack</a>
+                            <a class="dropdown-item " href="{% url 'student_forum:student_success_stories' %}">Student Success Stories</a>
                         </div>
                         <!-- End Mega Menu -->
                     </li>
@@ -177,9 +176,9 @@
 
                         <!-- Mega Menu -->
                         <div class="hs-sub-menu dropdown-menu" aria-labelledby="newsLetterMegaMenu" style="min-width: 14rem;">
-                            <a class="dropdown-item " href="./current-events.html">Current Events</a>
-                            <a class="dropdown-item " href="./upcoming-events.html">Upcoming Events</a>
-                            <a class="dropdown-item " href="./newsletter-gallery.html">Gallery</a>
+                            <a class="dropdown-item " href="{% url 'newsletter:upcoming_events' %}">Upcoming Events</a>
+                            <a class="dropdown-item " href="{% url 'newsletter:past_events' %}">Past Events</a>
+                            <a class="dropdown-item " href="{% url 'newsletter:gallery' %}">Gallery</a>
                         </div>
                         <!-- End Mega Menu -->
                     </li>
@@ -187,7 +186,7 @@
 
                     <!-- Contact -->
                     <li class="hs-has-sub-menu nav-item">
-                        <a id="contactMegaMenu" class="hs-mega-menu-invoker nav-link " href="./page-contacts-us.html" role="button" aria-expanded="false">Contact</a>
+                        <a id="contactMegaMenu" class="hs-mega-menu-invoker nav-link " href="{% url 'core:contact_us' %}" role="button" aria-expanded="false">Contact</a>
 
                         <!-- Mega Menu -->
                         <div class="hs-sub-menu dropdown-menu d-none" aria-labelledby="contactMegaMenu" style="min-width: 14rem;">
@@ -202,9 +201,9 @@
 
                         <!-- Mega Menu -->
                         <div class="hs-sub-menu dropdown-menu" aria-labelledby="dashBoardMegaMenu" style="min-width: 14rem;">
-                            <a class="dropdown-item " href="./summery.html">Summary</a>
-                            <a class="dropdown-item " href="./university-list.html">University List</a>
-                            <a class="dropdown-item " href="./company-list.html">Company List</a>
+                            <a class="dropdown-item " href="{% url 'dashboard:summery' %}">Summary</a>
+                            <a class="dropdown-item " href="{% url 'dashboard:university_list' %}">University List</a>
+                            <a class="dropdown-item " href="{% url 'dashboard:company_list' %}">Company List</a>
                         </div>
                         <!-- End Mega Menu -->
                     </li>

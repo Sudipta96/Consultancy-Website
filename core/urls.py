@@ -14,9 +14,9 @@ urlpatterns = [
     path("about-us/our-aim-objectives", views.our_aim_objectives_view, name="our_aim_objectives"),
     path("about-us/our-strategy", views.our_strategy_view, name="our_strategy"),
     
-    path("resource-persons/managing-body", views.managing_body_view, name="managing-body"),
-    path("resource-persons/parmanent-speakers", views.parmanent_speaker_view, name="parmanent-speakers"),
-    path("resource-persons/guest-speakers", views.guest_speaker_view, name="guest-speakers"),
+    path("resource-persons/managing-body", views.managing_body_view, name="managing_body"),
+    path("resource-persons/parmanent-speakers", views.parmanent_speaker_view, name="parmanent_speakers"),
+    path("resource-persons/guest-speakers", views.guest_speaker_view, name="guest_speakers"),
     path("contact-us/", views.contact_us_view, name="contact_us"),
     
 ]

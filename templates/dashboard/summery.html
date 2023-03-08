@@ -1,0 +1,130 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block content %}  
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+        <!-- Hero -->
+        <!-- CTA -->
+        <div class="bg-img-center" style="background-image: url(../../static/img/1920x800/img8.jpg);">
+            <div class="container content-space-2 content-space-lg-3">
+            <div class="w-md-65 w-lg-35">
+                <div class="mb-4">
+                <h2 class="h1 text-white">Our Dashboard</h2>
+                <p class="text-white">Outdo the sun and refresh your workout with greys, whites and dark brights.</p>
+                </div>
+                <a class="btn btn-light btn-transition rounded-pill" href="#">learn about the statistics</a>
+            </div>
+            </div>
+        </div>
+       <!-- End CTA -->
+
+        <!-- Card Grid -->
+        <div class="container chart-container content-space-b-2 content-space-t-2 content-space-b-lg-3">
+            <div class="row">
+                <div class="col-12 col-md-10">
+                    <div class="card">
+                       <div class="card-body">
+                          <h5 class="card-title">No of Students Registration<span>-2023</span></h5>
+                          <div id="registrationChart"></div>
+                              <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                new ApexCharts(document.querySelector("#registrationChart"), {
+                                    chart: {
+                                        type: 'bar'
+                                    },
+                                    series: [{
+                                        name: 'No of students',
+                                        data: [30,40,45,50,49,60,70,91,125]
+                                    }],
+                                    xaxis: {
+                                        categories: ["January","February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"]
+                                    }
+                                 }).render();
+                                })
+                              </script> 
+                          
+                       </div>
+                    </div>
+                </div>
+            
+                <div class="col-12 col-md-10 mt-5">
+                    <div class="card">
+                       <div class="card-body">
+                          <h5 class="card-title">No of students admission in our courses<span>-2023</span></h5>
+                          <div id="admissionChart"></div>
+                              <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                new ApexCharts(document.querySelector("#admissionChart"), {
+                                    chart: {
+                                        type: 'bar'
+                                    },
+                                    series: [{
+                                        name: 'No of students',
+                                        data: [30,40,45,50,49,60,70,91,125]
+                                    }],
+                                    xaxis: {
+                                        categories: ["January","February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"]
+                                    }
+                                 }).render();
+                                })
+                              </script> 
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+{% endblock %}
+{% block js %}
+    <!-- chart js -->
+    <script src="{% static 'js/chart.min.js' %}"></script>
+    <script src="{% static 'js/apexcharts.min.js' %}"></script>
+    <script src="1{% static 'js/echarts.min.js' %}"></script>
+    <!-- JS Plugins Init. -->
+    <script>
+        (function() {
+            // INITIALIZATION OF HEADER
+            // =======================================================
+            new HSHeader('#header').init()
+
+
+            // INITIALIZATION OF MEGA MENU
+            // =======================================================
+            new HSMegaMenu('.js-mega-menu', {
+                desktop: {
+                    position: 'left'
+                }
+            })
+
+
+            // INITIALIZATION OF SHOW ANIMATIONS
+            // =======================================================
+            new HSShowAnimation('.js-animation-link')
+
+
+            // INITIALIZATION OF BOOTSTRAP VALIDATION
+            // =======================================================
+            HSBsValidation.init('.js-validate', {
+                onSubmit: data => {
+                    data.event.preventDefault()
+                    alert('Submited')
+                }
+            })
+
+
+            // INITIALIZATION OF BOOTSTRAP DROPDOWN
+            // =======================================================
+            HSBsDropdown.init()
+
+
+            // INITIALIZATION OF GO TO
+            // =======================================================
+            new HSGoTo('.js-go-to')
+        })()
+    </script>
+{% endblock %}

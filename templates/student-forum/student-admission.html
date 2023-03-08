@@ -1,0 +1,343 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+<style>
+    .hero{
+          position: relative;
+          min-width: 100vh;
+          min-height: 100vh;
+          /* max-width: 100vh; */
+          /* max-height: 100vh; */
+        }
+        .hero > .hero-context {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(
+          rgba(0,0,0,1),
+          rgba(0,0,0,.7),
+          rgba(0,0,0,.4),
+          rgba(0,0,0,0));
+        }
+</style>
+{% endblock %}
+{% block content %}
+<!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+           <!-- Hero Section-->
+    <div class="bg-img-center bg-dark" style="background-image: url({{hero_section.image.url}});">
+        <div class="container content-space-2 content-space-lg-3">
+        <div class="w-md-65 w-lg-35">
+            <div class="mb-4">
+            <h2 class="h1 text-white">{{hero_section.heading}}</h2>
+            <p class="text-white">{{hero_section.short_note}}</p>
+            </div>
+            {% if hero_section.link and hero_section.link_text %}
+            <a class="btn btn-light btn-transition rounded-pill" href="{{hero_section.link}}">{{hero_section.link_text}}</a>
+            {% endif %}
+            <!-- <a class="btn btn-light btn-transition rounded-pill" href="#">Shop the collection</a> -->
+        </div>
+        </div>
+    </div>
+
+    <div class="container-fluid px-0 position-absolute" style="z-index: 999; top:0;">
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} text-center alert-dismissible fade show" style="border-radius: 0;" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+    </div>
+
+        <!-- Contacts -->
+    <div class="position-relative">
+        <div class="">
+          <div class="container content-space-t-2 content-space-t-lg-3 content-space-b-1">
+
+            <!-- Heading -->
+            <div class="w-lg-50 text-center mx-lg-auto mb-7">
+              <!-- <span class="text-cap text-white">FeedBack Us</span> -->
+              <h2 class="">Student Admission</h2>
+            </div>
+            <!-- End Heading -->
+            <div class="row">
+                <div class="col-10 col-lg-9 mx-auto">
+                    <div class="mx-auto">
+                <!-- Card -->
+                <div class="card zi-2 mb-5">
+                    <!-- Body -->
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'student_forum:student_admission' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Form -->
+                            <div class="row mb-4">
+                                <label class="col-sm-3 col-form-label form-label">Profile photo </label>
+
+                                <div class="col-sm-9">
+                                    <!-- Media -->
+                                    <div class="d-flex align-items-center">
+                                        <!-- Avatar -->
+                                        <label class="avatar avatar-xl avatar-circle" for="avatar">
+                                        <img id="avatarImg" name="" class="avatar-img" src="{{request.user.avatar.url }}" alt="Image Description">
+                                        </label>
+
+                                        <div class="d-grid d-sm-flex gap-2 ms-4">
+                                            <div class="form-attachment-btn btn btn-primary btn-sm">Upload photo
+                                                <input type="file" name="avatar" class="js-file-attach form-attachment-btn-label" id="avatar" data-hs-file-attach-options='{
+                                                "textTarget": "#avatarImg",
+                                                "mode": "image",
+                                                "targetAttr": "src",
+                                                "resetTarget": ".js-file-attach-reset-img",
+                                                "resetImg": "./assets/img/160x160/img1.jpg",
+                                                "allowTypes": [".png", ".jpeg", ".jpg"]
+                                            }'>
+                                            </div>
+                                            <!-- End Avatar -->
+
+                                            <!-- <button type="button" class="js-file-attach-reset-img btn btn-white btn-sm">Delete</button> -->
+                                        </div>
+                                    </div>
+                                    <!-- End Media -->
+                                </div>
+                            </div>
+                            <!-- End Form -->
+
+                            <!-- Form -->
+                            <div class="row mb-4">
+                                <label for="full_name" class="col-sm-3 col-form-label form-label">Full name</label>
+
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="full_name" id="full_name" placeholder="fullName" aria-label="fullName" value="{{request.user.fullname}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Form -->
+
+                            <!-- Form -->
+                            <div class="row mb-4">
+                                <label for="email" class="col-sm-3 col-form-label form-label">Email</label>
+
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="email@example.com" aria-label="email@example.com" value="{{request.user.email}}">
+                                </div>
+                            </div>
+                            <!-- End Form -->
+
+                            <!-- Form -->
+                            <div class="js-add-field row mb-4" data-hs-add-field-options='{
+                "template": "#addPhoneFieldTemplate",
+                "container": "#addPhoneFieldContainer",
+                "defaultCreated": 0
+                }'>
+                                <label for="personal_contact_number" class="col-sm-3 col-form-label form-label">Personal Contact Number</label>
+
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="js-input-mask form-control" name="personal_contact_number" id="personal_contact_number" placeholder="+(88)(0)xx-xx-xx-xx-xx" aria-label="+(88)(0)xx-xx-xx-xx-xx" value="{{request.user.contact_number}}" data-hs-mask-options='{
+                        "mask": "+{88}000-00-00-00-00"
+                    }'>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Form -->
+
+                             <!-- Form -->
+                             <div class="row mb-4">
+                                <label for="father_name" class="col-sm-3 col-form-label form-label">Father name</label>
+
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="father_name" id="father_name" placeholder="Your father Name" aria-label="fullName" value="" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Form -->
+
+                             <!-- Form -->
+                             <div class="row mb-4">
+                                <label for="mother_name" class="col-sm-3 col-form-label form-label">Mother name</label>
+
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="mother_name" id="mother_name" placeholder="Your Mother Name" aria-label="fullName" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Form -->
+
+                             <!-- Form -->
+                            <div class="js-add-field row mb-4" data-hs-add-field-options='{
+                                "template": "#addPhoneFieldTemplate",
+                                "container": "#addPhoneFieldContainer",
+                                "defaultCreated": 0
+                                }'>
+                                                <label for="gurdian_contact_number" class="col-sm-3 col-form-label form-label">Gurdian Contact Number</label>
+                
+                                                <div class="col-sm-9">
+                                                    <div class="input-group">
+                                                        <input type="text" class="js-input-mask form-control" name="gurdian_contact_number" id="gurdian_contact_number" placeholder="+(88)(0)xx-xx-xx-xx-xx" aria-label="+(88)(0)xx-xx-xx-xx-xx" value="" data-hs-mask-options='{
+                                        "mask": "+{88}000-00-00-00-00"
+                                    }'>
+                                                    </div>
+                                                </div>
+                            </div>
+                                            <!-- End Form -->
+                             
+                                 <!-- Form -->
+                            <div class="js-add-field row mb-4" data-hs-add-field-options='{
+                                "template": "#addPhoneFieldTemplate",
+                                "container": "#addPhoneFieldContainer",
+                                "defaultCreated": 0
+                                }'>
+                                                <label for="transaction_id" class="col-sm-3 col-form-label form-label">Transaction Id</label>
+                
+                                                <div class="col-sm-9">
+                                                    <div class="input-group">
+                                                        <input type="text" class="js-input-mask form-control" name="transaction_id" id="transaction_id" placeholder="" aria-label="" value="" required>
+                                                    </div>
+                                                </div>
+                               </div>
+                                            <!-- End Form -->
+                             <!-- Form -->
+                             <div class="js-add-field row mb-4" data-hs-add-field-options='{
+                                "template": "#addPhoneFieldTemplate",
+                                "container": "#addPhoneFieldContainer",
+                                "defaultCreated": 0
+                                }'>
+                                                <label for="national_id" class="col-sm-3 col-form-label form-label">NID Card Number</label>
+                
+                                                <div class="col-sm-9">
+                                                    <div class="input-group">
+                                                        <input type="text" class="js-input-mask form-control" name="national_id" id="national_id" aria-label="" value="">
+                                                    </div>
+                                                </div>
+                               </div>
+                                            <!-- End Form -->
+
+                                
+                                 <!-- Form -->
+                            <div class="js-add-field row mb-4" data-hs-add-field-options='{
+                                "template": "#addPhoneFieldTemplate",
+                                "container": "#addPhoneFieldContainer",
+                                "defaultCreated": 0
+                                }'>
+                                                <label for="birth_cirtificate_id" class="col-sm-3 col-form-label form-label">Birth Cirtificate Number</label>
+                
+                                                <div class="col-sm-9">
+                                                    <div class="input-group">
+                                                        <input type="text" class="js-input-mask form-control" name="birth_cirtificate_id" id="birth_cirtificate_id" placeholder="" aria-label="" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Form -->
+                            <div class="row mb-4 mt-5"s>
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                <button class="btn btn-primary text-center">Submit</button>
+                                     
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- End Body -->
+                </div>
+                <!-- End Card -->
+                    </div>
+                </div>
+            </div>
+            
+          </div>
+        </div>
+  
+        <!-- Shape -->
+        <!-- <div class="shape shape-bottom zi-1">
+          <svg width="3000" height="500" viewBox="0 0 3000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 500H3000V0L0 500Z" fill="rgb(33, 50, 91)" />
+          </svg>
+        </div> -->
+
+         <!-- Background Shape -->
+        <!-- <figure class="position-absolute top-0 start-0 w-65">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1246 1078">
+            <g opacity=".4">
+                <linearGradient id="doubleEllipseTopLeftID1" gradientUnits="userSpaceOnUse" x1="2073.5078" y1="1.7251" x2="2273.4375" y2="1135.5818" gradientTransform="matrix(-1 0 0 1 2600 0)">
+                <stop offset="0.4976" style="stop-color:#559bff"/>
+                <stop offset="1" style="stop-color:#377dff"/>
+                </linearGradient>
+                <polygon fill="url(#doubleEllipseTopLeftID1)" points="519.8,0.6 0,0.6 0,1078 863.4,1078   "/>
+                <linearGradient id="doubleEllipseTopLeftID2" gradientUnits="userSpaceOnUse" x1="1717.1648" y1="3.779560e-05" x2="1717.1648" y2="644.0417" gradientTransform="matrix(-1 0 0 1 2600 0)">
+                <stop offset="1.577052e-06" style="stop-color:#559bff"/>
+                <stop offset="1" style="stop-color:#377dff"/>
+                </linearGradient>
+                <polygon fill="url(#doubleEllipseTopLeftID2)" points="519.7,0 1039.4,0.6 1246,639.1 725.2,644   "/>
+            </g>
+            </svg>
+        </figure> -->
+        <!-- End Background Shape -->
+
+        <!-- Shape -->
+        <div class="shape shape-bottom zi-1" style="margin-bottom: -.125rem">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1920 100.1">
+            <path fill="rgb(33, 50, 91)" d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"></path>
+            </svg>
+        </div>
+        <!-- End Shape -->
+        <!-- End Shape -->
+      </div>
+      <!-- End Contacts -->
+
+    </main>
+     
+<!-- ========== END MAIN CONTENT ========== -->
+{% endblock content %}
+{% block js %}
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        // HSBsValidation.init('.js-validate', {
+        //     onSubmit: data => {
+        //         data.event.preventDefault();
+        //         document.getElementById("feedbackForm").submit();
+        //     }
+        // })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+    })()
+</script>
+{% endblock %}

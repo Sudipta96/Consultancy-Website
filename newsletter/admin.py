@@ -7,11 +7,11 @@ from django.utils.translation import gettext_lazy as _
 # Register your models here.
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('short_title', "content_type", "event_status", "edited_by", "created_at", "list_image_preview")
+    list_display = ('short_title', "content_type", "edited_by", "is_featured", "created_at", "list_image_preview")
     prepopulated_fields = {'slug': ('title',)}
     readonly_fields = ["edit_form_image_preview"]
     fieldsets = (
-          ('Event Create/Edit Form', {'fields':('title',"slug","title_intro","image_thumbnail","edit_form_image_preview","content_type", "event_status", "event_url","description","event_date")}),
+          ('Event Create/Edit Form', {'fields':('title',"slug","title_intro","image_thumbnail","edit_form_image_preview","content_type", "event_url","description","venue", "event_date", "is_featured",)}),
     )
     def list_image_preview(self, obj):
           return mark_safe(f'<img src="/media/{obj.image_thumbnail}" id="image-preview" style="width:75px; height:auto; border-radius:10%" alt="">')

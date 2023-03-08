@@ -122,15 +122,7 @@
 {% endblock content %}
 {% block js %}
 <script>
-    // INITIALIZATION OF BOOTSTRAP VALIDATION
-    // =======================================================
-    HSBsValidation.init('.js-validate', {
-        onSubmit: data => {
-            data.event.preventDefault()
-            document.getElementById("signinForm").submit();
-        }
-    })
-
+    
     // let signInForm = document.getElementById("signinForm");
     
     // function displayError(elemId){
@@ -175,5 +167,53 @@
     //     }
     // })
 
+</script>
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+        
+        // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // =======================================================
+        HSBsValidation.init('.js-validate', {
+            onSubmit: data => {
+                data.event.preventDefault()
+                document.getElementById("signinForm").submit();
+            }
+        })
+
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+    })()
 </script>
 {% endblock js %}

@@ -1,4 +1,4 @@
-from .models import StudentFeedback
+from .models import StudentFeedback, Admission
 from django import forms
 
 
@@ -21,3 +21,7 @@ class StudentFeedbackForm(forms.ModelForm):
     #     if review == "":
     #         raise forms.ValidationError(f'Review can not be empty. Please fill it.')
         
+class AdmissionForm(forms.ModelForm):
+    class Meta:
+        model = Admission
+        fields = ('full_name', "email", "father_name", "mother_name", "personal_contact_number", "gurdian_contact_number", "avatar", "transaction_id", "national_id", "birth_cirtificate_id")

@@ -4,6 +4,10 @@ from student_forum.models import Company
 # Create your views here.
 
 
+def summery(request):
+    return render(request, "dashboard/summery.html", context={})
+
+
 def university_list_view(request):
     universities = University.objects.all().distinct()
     count = len(universities)

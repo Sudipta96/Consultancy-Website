@@ -42,5 +42,6 @@ class SuccessStoryAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.edited_by = request.user
         super(SuccessStoryAdmin, self).save_model(request, obj, form, change)
-    
+
+admin.site.register(StudentAdmissionTransactionInfo)
 admin.site.register(Admission)

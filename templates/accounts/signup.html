@@ -104,7 +104,7 @@
                                                     </a>
                                                 </div>
                         
-                                                <span class="invalid-feedback">Your password is invalid. Please try again.</span>
+                                                <span class="invalid-feedback text-white">Your password is invalid. Please try again.</span>
                                             </div>
                                             <!-- End Form -->
                                         </div>
@@ -124,7 +124,7 @@
                                                         <i class="js-toggle-passowrd-show-icon-2 bi-eye"></i>
                                                         </a>
                                                     </div>
-                                                <span class="invalid-feedback">Password does not match the confirm password.</span>
+                                                <span class="invalid-feedback text-white">Password does not match the confirm password.</span>
                                             </div>
                                             <!-- End Form -->
                                         </div>
@@ -279,7 +279,7 @@
     function nextPrev(n) {
         remove_invalid_text(n);
         var x = document.getElementsByClassName("tab");
-        // if (n == 1 && !validateForm()) return false;
+        if (n == 1 && !validateForm()) return false;
         x[currentTab].style.display = "none";
         currentTab = currentTab + n;
         
@@ -422,5 +422,53 @@
         // })
     
 
+</script>
+<script>
+    (function() {
+        // INITIALIZATION OF HEADER
+        // =======================================================
+        new HSHeader('#header').init()
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        new HSMegaMenu('.js-mega-menu', {
+            desktop: {
+                position: 'left'
+            }
+        })
+
+
+        // INITIALIZATION OF SHOW ANIMATIONS
+        // =======================================================
+        new HSShowAnimation('.js-animation-link')
+
+
+        // // INITIALIZATION OF BOOTSTRAP VALIDATION
+        // // =======================================================
+        // HSBsValidation.init('.js-validate', {
+        //     onSubmit: data => {
+        //         data.event.preventDefault()
+        //         alert('Submited')
+        //     }
+        // })
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF GO TO
+        // =======================================================
+        new HSGoTo('.js-go-to')
+
+
+        // INITIALIZATION OF STICKY BLOCKS
+        // =======================================================
+        new HSStickyBlock('.js-sticky-block', {
+            targetSelector: document.getElementById('header').classList.contains('navbar-fixed') ? '#header' : null
+        })
+    })()
 </script>
 {% endblock js %}

@@ -10,8 +10,8 @@ urlpatterns =  [
    path('account-activation-emaail-sent/', views.account_activation_email_sent, name="account_activation_email_sent"),
    path('activate/<uidb64>/<token>/', views.activate_account, name="activate_account"),
    
-   path("profile/", views.account_profile, name="account_profile"),
-   path("profile/address/", views.account_address, name="account_address"),
+   # path("profile/", views.account_profile, name="account_profile"),
+   # path("profile/address/", views.account_address, name="account_address"),
    
    # path('password_recovery_email/', views.password_recovery_email, name="password_recovery_email"),
    # path('password_reset_confirm/', views.password_reset_confirm, name="password_reset_confirm"),

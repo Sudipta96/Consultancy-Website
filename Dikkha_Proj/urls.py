@@ -28,9 +28,10 @@ urlpatterns = [
     path('skills/', include('skills.urls')),
     path("student-forum/", include("student_forum.urls")),
     path("dashboard/", include("dashboard.urls")),
-
-    # account
-    path("accounts/", include("accounts.urls")),
+    path("newsletter/", include("newsletter.urls")),
     
+    # account
+    path("accounts/", include("account_profile.urls")),
+    path("authentication/", include("accounts.urls")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

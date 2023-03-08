@@ -171,7 +171,11 @@ class Admission(models.Model):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
     father_name = models.CharField(max_length=100) 
     mother_name = models.CharField(max_length=100)
-    contact_number = models.CharField(validators=[RegexValidator(r'^(?:\+?88)?01[3-9]\d{8}$', message="Contact number must be entered in following formats: +8801757551134, 8801857871165 or 01915604232")],
+    personal_contact_number = models.CharField(validators=[RegexValidator(r'^(?:\+?88)?01[3-9]\d{8}$', message="Contact number must be entered in following formats: +8801757551134, 8801857871165 or 01915604232")],
+                                      max_length = 14, blank=True,
+                                      help_text="Supported Formats: +8801757551134, 8801757871165 or 01715604232")
+    
+    gurdian_contact_number = models.CharField(validators=[RegexValidator(r'^(?:\+?88)?01[3-9]\d{8}$', message="Contact number must be entered in following formats: +8801757551134, 8801857871165 or 01915604232")],
                                       max_length = 14, blank=True,
                                       help_text="Supported Formats: +8801757551134, 8801757871165 or 01715604232")
     avatar = ProcessedImageField(upload_to=get_student_admission_avatar_file_path, 
@@ -181,8 +185,8 @@ class Admission(models.Model):
                                  format='JPEG',
                                  options={'quality': 75})
     transaction_id = models.CharField(max_length=10, unique=True)
-    national_id = models.IntegerField(blank=True, unique=True)
-    birth_cirtificate_id = models.IntegerField(blank=True, unique=True)
+    national_id = models.IntegerField(blank=True,)
+    birth_cirtificate_id = models.IntegerField(blank=True)
     is_verified = models.BooleanField(default=False, help_text="admission is verified or not")
     is_checked = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
